@@ -1,0 +1,36 @@
+/*input*/
+
+.valor {
+    width: 20%;
+    margin-left: 9.6%;
+}
+
+.entrada {
+    width: 20%;
+    margin-left: 7.6%;
+}
+
+.nParcelas {
+    width: 20%;
+}
+
+.tJuros {
+    width: 20%;
+    margin-left: 4.4%;
+}
+
+/*tabela*/
+table {
+    border: #000000;
+    width: 100%;
+}
+
+table th {
+    background-color: #000000;
+    color: #fff;
+}
+
+table td {
+    background-color: #f0f0f0;
+    color: #0c0c0c;
+}
