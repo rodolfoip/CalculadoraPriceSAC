@@ -41,7 +41,11 @@ function calculaPrice() {
 }
 
 function criaTabelaPrice(valor, parcela, nParcelas, juros) {
-
+    //verifica se existe tabela, caso sim, apaga
+    if (document.getElementById("tabela").childElementCount != 0) {
+        console.log("apagou tabela");
+        document.getElementById("tabela").innerHTML = ""
+    }
     //TABELA
     var corpo = document.getElementById("tabela");
 
@@ -121,6 +125,11 @@ function calculaSAC() {
 }
 
 function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
+    //verifica se existe tabela, caso sim, apaga
+    if (document.getElementById("tabela").childElementCount != 0) {
+        console.log("apagou tabela");
+        document.getElementById("tabela").innerHTML = ""
+    }
     //TABELA
     var corpo = document.getElementById("tabela");
 

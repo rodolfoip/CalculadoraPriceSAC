@@ -10,19 +10,57 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
-<body>
+<body class="body">
+<div class="container">
+    <div class="col navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
+            <a class="navbar-brand" href="#">Calculadora price</a>
+            <a class="navbar-brand" href="#">Calculadora SAC</a>
+        </nav>
+    </div>
+</div>
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col"></div>
+        <div class="col divForm">
             <form>
-                <p>Valor:<input class="valor" type="text" id="valorCampo"></p>
-                <p>Entrada: <input value="0" class="entrada" type="text" id="entradaCampo"></p>
-                <p>Número de parcelas:<input class="nParcelas" type="text" id="nParcelasCampo"></p>
-                <p>Taxa de juros:(em %)<input class="tJuros" type="number" step=0.01 id="jurosCampo"></p>
+                <div class="form-group form">
+                    <div class="col">
+                        <label>Valor:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">R$</span>
+                            <input class="form-control" type="text" id="valorCampo">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label>Entrada:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon2">R$</span>
+                            <input value="0" class="form-control" type="text" id="entradaCampo">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label>Número de parcelas:</label>
+                        <input class="form-control" type="text" id="nParcelasCampo">
+                    </div>
+                    <div class="col">
+                        <label>Taxa de juros:(em %)</label>
+                        <input class="form-control" type="number" step=0.01 id="jurosCampo">
+                    </div>
+                    <div class="col btn-group" role="group">
+                        <button class="btn btn-success btn-sm botoes" type="button" onclick="calculaPrice()">Calcular
+                            Price
+                        </button>
+                        <button class="btn btn-warning btn-sm botoes" type="button" onclick="calculaSAC()">Calcular SAC
+                        </button>
+                    </div>
+                </div>
             </form>
-            <button type="button" onclick="calculaPrice()">Calcular Price</button>
-            <button type="button" onclick="calculaSAC()">Calcular SAC</button>
+
         </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
         <div class="col" id="tabela"></div>
     </div>
 </div>

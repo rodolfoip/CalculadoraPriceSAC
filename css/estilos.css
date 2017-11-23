@@ -1,5 +1,7 @@
+.body{
+    background-color: cadetblue;
+}
 /*input*/
-
 .valor {
     width: 20%;
     margin-left: 9.6%;
@@ -18,11 +20,35 @@
     width: 20%;
     margin-left: 4.4%;
 }
-
+/*menu*/
+.menu{
+    width: 100%;
+}
+/*Form*/
+.divForm{
+    padding-top: 10%;
+}
+.form{
+    background-color: #ffc33f;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.form{
+    padding-bottom: 4%;
+}
+/*botoes do fomulario*/
+.botoes{
+    margin-top: 2%;
+    width: 49.38%;
+}
+.btn-group{
+    margin-top: 4%;
+}
 /*tabela*/
 table {
-    border: #000000;
     width: 100%;
+    border: 1px solid black;
 }
 
 table th {
