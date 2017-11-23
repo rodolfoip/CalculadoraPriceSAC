@@ -51,6 +51,7 @@ function criaTabelaPrice(valor, parcela, nParcelas, juros) {
 
     var tabela = document.createElement("table");
     var corpoTabela = document.createElement("tbody");
+    var headerTabela = document.createElement("thead");
     var colunas = ["Nº", "Valor parcela", "Juros", "Amortização", "Saldo devedor"];
 
 
@@ -61,7 +62,7 @@ function criaTabelaPrice(valor, parcela, nParcelas, juros) {
             var textoColuna = document.createTextNode(colunas[k]);
             celulaColuna.appendChild(textoColuna);
             linha.appendChild(celulaColuna);
-            corpoTabela.appendChild(linha);
+            headerTabela.appendChild(linha);
         }
     }
 
@@ -108,6 +109,7 @@ function criaTabelaPrice(valor, parcela, nParcelas, juros) {
             corpoTabela.appendChild(linha);
         }
     }
+    tabela.appendChild(headerTabela);
     tabela.appendChild(corpoTabela);
     corpo.appendChild(tabela);
 }
@@ -135,6 +137,7 @@ function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
 
     var tabela = document.createElement("table");
     var corpoTabela = document.createElement("tbody");
+    var headerTabela = document.createElement("thead");
     var colunas = ["Nº", "Valor parcela", "Juros", "Amortização", "Saldo devedor"];
 
     for (var i = 0; i < 1; i++) {
@@ -144,7 +147,7 @@ function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
             var textoColuna = document.createTextNode(colunas[k]);
             celulaColuna.appendChild(textoColuna);
             linha.appendChild(celulaColuna);
-            corpoTabela.appendChild(linha);
+            headerTabela.appendChild(linha);
         }
     }
 
@@ -186,6 +189,15 @@ function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
             corpoTabela.appendChild(linha);
         }
     }
+    tabela.appendChild(headerTabela);
     tabela.appendChild(corpoTabela);
     corpo.appendChild(tabela);
+}
+function ocultabotaoprice() {
+    document.getElementById("btnprice").style.display = "none";
+    document.getElementById("btnsac").style.display = "flex";
+}
+function ocultabotaosac() {
+    document.getElementById("btnsac").style.display = "none";
+    document.getElementById("btnprice").style.display = "flex";
 }
