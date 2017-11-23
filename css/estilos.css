@@ -58,9 +58,16 @@
     margin-top: 4%;
 }
 /*tabela*/
+.div-tabela{
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    display: none;
+}
+
 table {
-    width: 100%;
-    border: 1px solid black;
+    border-collapse: separate;
+    border-radius: 20px;
 }
 
 table th {

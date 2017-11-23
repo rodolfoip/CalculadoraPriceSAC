@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Calculadora Financeira</title>
-    <script src="js/funcoes.js"></script>
     <link rel="stylesheet" href="css/estilos.css">
     <!--Bootstrap4 CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
@@ -50,7 +49,7 @@
                         </button>
                     </div>
                     <div class="col btn-group" style="display: none" id="btnsac" role="group">
-                        <button class="btn btn-warning btn-sm" type="button" onclick="calculaSAC()">
+                        <button class="btn btn-danger btn-sm" type="button" onclick="calculaSAC()">
                             Calcular SAC
                         </button>
                     </div>
@@ -60,8 +59,11 @@
         <div class="col"></div>
     </div>
     <div class="row">
-        <div class="col" id="tabela"></div>
+        <div class="col"></div>
+        <div class="col-6 div-tabela" id="tabela"></div>
+        <div class="col"></div>
     </div>
 </div>
+<script src="js/funcoes.js"></script>
 </body>
 </html>
