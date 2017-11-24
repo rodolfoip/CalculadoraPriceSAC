@@ -39,6 +39,7 @@ var getInterest = function () {
     }
     return fieldInterest();
 }
+
 function validateFields() {
     //se existir algum alerta na tela, ele oculta
     hideAlerts();
@@ -107,10 +108,12 @@ function calcTotInterest(valor, interest) {
     var totInterest = valor * interest;
     return totInterest;
 }
+
 function calcBalance(value, amortiz) {
     var balance = value - amortiz;
     return balance;
 }
+
 function createTabPric(parcela, nParcelas) {
     if (document.getElementById("tbody").childElementCount > 0) {
         document.getElementById("tbody").innerHTML = "";
@@ -119,7 +122,7 @@ function createTabPric(parcela, nParcelas) {
     //TABELA
     var tbody = document.getElementById("tbody");
 
-    var linha = document.createElement("tr");
+    var row = document.createElement("tr");
     var celula1, celula2, celula3, celula4, celula5;
     var texto1, texto2, texto3, texto4, texto5;
     var value = getValue();
@@ -153,7 +156,7 @@ function createTabPric(parcela, nParcelas) {
 
             totInterest = calcTotInterest(value, getInterest());
             amortiz = parcela - totInterest;
-            value = calcBalance(value,amortiz);
+            value = calcBalance(value, amortiz);
 
             row = document.createElement("tr");
             celula1 = document.createElement("td");
@@ -182,34 +185,39 @@ function createTabPric(parcela, nParcelas) {
     }
 }
 
-function calculaSAC() {
+function calcSAC() {
     if (validateEmptFields() && validateFields()) {
         hideAlerts();
-        var valor = document.getElementById("valorCampo").value;
-        var nParcelas = document.getElementById("nParcelasCampo").value;
-        var entrada = document.getElementById("entradaCampo").value;
-        var juros = document.getElementById("jurosCampo").valueAsNumber;
-        juros = (juros / 100);
-        valor = (valor - entrada);
-        var amortizacao = (valor / nParcelas);
-
-        criarTabelaSAC(valor, juros, amortizacao, nParcelas);
+        var interest = getInterest();
+        var value = (getValue() - getEntry());
+        var amortiz = calcAmortizSac(value);
+        createTabSAC(value, interest, amortiz, getNParcel());
     }
 }
 
-function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
+function calcAmortizSac(value) {
+    var amort = value / getNParcel();
+    return amort;
+}
+function calcTotInterestSac(value, interest) {
+    var totInterest = value * interest;
+    return totInterest;
+
+}
+function createTabSAC(value, interest, amortiz, nParcel) {
     if (document.getElementById("tbody").childElementCount > 0) {
         document.getElementById("tbody").innerHTML = "";
     }
     desocultatabela();
     //TABELA
-    var corpoTabela = document.getElementById("tbody");
+    var tbody = document.getElementById("tbody");
 
     var row = document.createElement("tr");
     var celula1, celula2, celula3, celula4, celula5;
     var texto1, texto2, texto3, texto4, texto5;
-
-    for (var j = 0; j <= nParcelas; j++) {
+    var totInterest, parcel;
+    var val = value;
+    for (var j = 0; j <= nParcel; j++) {
         if (j === 0) {
             row = document.createElement("tr");
             celula1 = document.createElement("td");
@@ -217,7 +225,7 @@ function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
             celula1.appendChild(texto1);
             row.appendChild(celula1);
             celula2 = document.createElement("td");
-            texto2 = document.createTextNode(valor);
+            texto2 = document.createTextNode(getValue());
             celula2.appendChild(texto2);
             row.appendChild(celula2);
             celula3 = document.createElement("td");
@@ -229,15 +237,15 @@ function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
             celula4.appendChild(texto4);
             row.appendChild(celula4);
             celula5 = document.createElement("td");
-            texto5 = document.createTextNode(valor);
+            texto5 = document.createTextNode(getValue());
             celula5.appendChild(texto5);
             row.appendChild(celula5);
 
-            corpoTabela.appendChild(row);
+            tbody.appendChild(row);
         } else {
-            var totalJuros = (valor * juros);
-            var parcela = (totalJuros + amortizacao);
-            valor = (valor - amortizacao);
+            totInterest = calcTotInterestSac(val, interest);
+            parcel = (totInterest + amortiz);
+            val = (val - amortiz);
 
             row = document.createElement("tr");
             celula1 = document.createElement("td");
@@ -245,23 +253,23 @@ function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
             celula1.appendChild(texto1);
             row.appendChild(celula1);
             celula2 = document.createElement("td");
-            texto2 = document.createTextNode(parcela.toFixed(2));
+            texto2 = document.createTextNode(parcel.toFixed(2));
             celula2.appendChild(texto2);
             row.appendChild(celula2);
             celula3 = document.createElement("td");
-            texto3 = document.createTextNode(totalJuros.toFixed(2));
+            texto3 = document.createTextNode(totInterest.toFixed(2));
             celula3.appendChild(texto3);
             row.appendChild(celula3);
             celula4 = document.createElement("td");
-            texto4 = document.createTextNode(amortizacao.toFixed(2));
+            texto4 = document.createTextNode(amortiz.toFixed(2));
             celula4.appendChild(texto4);
             row.appendChild(celula4);
             celula5 = document.createElement("td");
-            texto5 = document.createTextNode(valor.toFixed(2));
+            texto5 = document.createTextNode(val.toFixed(2));
             celula5.appendChild(texto5);
             row.appendChild(celula5);
 
-            corpoTabela.appendChild(row);
+            tbody.appendChild(row);
         }
     }
 }

@@ -19,7 +19,18 @@
 </header>
 <div class="container-fluid">
     <div class="row">
-        <div class="col"></div>
+        <div class="col col-lg-4 .col-sm-2">
+            <div class="card">
+                <img class="card-img-top" src="img/Instrucoes-054-1.png">
+                <div class="card-body">
+                    <h5 class="title-instr">Instruções para calculadora</h5>
+                    <p class="card-text">Para calcular usando financiamento Price clique em calculadora Price, caso seja
+                        SAC
+                        clique em calculadora SAC.
+                    </p>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-4 col-sm-auto div-form">
             <form>
                 <div class="form-group form">
@@ -53,7 +64,7 @@
                         </div>
                     </div>
                     <div class="col div-campo">
-                        <label>Taxa de juros:(em %)</label>
+                        <label>Taxa de juros:(% a.m.)</label>
                         <div class="input-group">
                             <input class="form-control" type="number" step=0.01 id="jurosCampo">
                         </div>
@@ -68,14 +79,27 @@
                         </button>
                     </div>
                     <div class="col btn-group" style="display: none" id="btnsac" role="group">
-                        <button class="btn btn-danger btn-sm" type="button" onclick="calculaSAC()">
+                        <button class="btn btn-danger btn-sm" type="button" onclick="calcSAC()">
                             Calcular SAC
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col"></div>
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="img/Instrucoes-054-1.png">
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Valor:</strong> Insira o valor do financiamento.
+                        <strong>Entrada:</strong> Insira a entrada caso fincanciamento tiver uma entrada no
+                        pagamento.<br>
+                        <strong>Número de parcelas</strong> Insira o número de parcelas que o financiamento terá.<br>
+                        <strong>Juros:</strong> Insira a taxa de juros do financiamento.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

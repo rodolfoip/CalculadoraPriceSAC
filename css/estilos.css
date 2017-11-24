@@ -32,6 +32,27 @@
     margin-left: 5%;
     margin-right: 5%;
 }
+/*card instruções*/
+@media (min-width: 992px){
+    .card{
+        width: 75%;
+        margin-left: 52px;
+        margin-right: 20%;
+        margin-top: 15px;
+    }
+}
+@media (max-width: 540px){
+    .card{
+        width: 80%;
+        margin-left: 30px;
+        margin-right: 20%;
+        margin-top: 15px;
+    }
+}
+.title-instr{
+
+}
+
 /*Form*/
 .div-form{
     padding-top: 10%;
