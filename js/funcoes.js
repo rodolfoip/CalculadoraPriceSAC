@@ -114,9 +114,12 @@ function calcBalance(value, amortiz) {
     return balance;
 }
 
-function createTabPric(parcela, nParcelas) {
+function createTabPric(parcel, nParcel) {
     if (document.getElementById("tbody").childElementCount > 0) {
         document.getElementById("tbody").innerHTML = "";
+    }
+    if(document.getElementById("tbodytot").childElementCount>0){
+        document.getElementById("tbodytot").innerHTML = "";
     }
     desocultatabela();
     //TABELA
@@ -126,8 +129,11 @@ function createTabPric(parcela, nParcelas) {
     var celula1, celula2, celula3, celula4, celula5;
     var texto1, texto2, texto3, texto4, texto5;
     var value = getValue();
-    var totInterest, amortiz;
-    for (var j = 0; j <= nParcelas; j++) {
+    var interest, amortiz;
+    var totParcel = 0;
+    var totAmortiz = 0;
+    var totInterest = 0;
+    for (var j = 0; j <= nParcel; j++) {
         if (j === 0) {
             row = document.createElement("tr");
             celula1 = document.createElement("td");
@@ -154,9 +160,13 @@ function createTabPric(parcela, nParcelas) {
             tbody.appendChild(row);
         } else {
 
-            totInterest = calcTotInterest(value, getInterest());
-            amortiz = parcela - totInterest;
+            interest = calcTotInterest(value, getInterest());
+            amortiz = parcel - interest;
             value = calcBalance(value, amortiz);
+            totParcel = totParcel+ parcel;
+            totAmortiz = totAmortiz + amortiz;
+            console.log(totAmortiz);
+            totInterest = totInterest + interest;
 
             row = document.createElement("tr");
             celula1 = document.createElement("td");
@@ -164,11 +174,11 @@ function createTabPric(parcela, nParcelas) {
             celula1.appendChild(texto1);
             row.appendChild(celula1);
             celula2 = document.createElement("td");
-            texto2 = document.createTextNode(parcela.toFixed(2));
+            texto2 = document.createTextNode(parcel.toFixed(2));
             celula2.appendChild(texto2);
             row.appendChild(celula2);
             celula3 = document.createElement("td");
-            texto3 = document.createTextNode(totInterest.toFixed(2));
+            texto3 = document.createTextNode(interest.toFixed(2));
             celula3.appendChild(texto3);
             row.appendChild(celula3);
             celula4 = document.createElement("td");
@@ -179,10 +189,33 @@ function createTabPric(parcela, nParcelas) {
             texto5 = document.createTextNode(value.toFixed(2));
             celula5.appendChild(texto5);
             row.appendChild(celula5);
-
             tbody.appendChild(row);
         }
     }
+    //adicionar total no tbody
+    var tbody = document.getElementById("tbodytot");
+    var row = document.createElement("tr");
+    var celtxtTotl = document.createElement("td");
+    var celTxtTotlVl = document.createTextNode("Total");
+    var celParcel = document.createElement("td");
+    var celParcelvalue = document.createTextNode(totParcel.toFixed(2));
+    var celInterest = document.createElement("td");
+    var celInterestValue = document.createTextNode(totInterest.toFixed(2));
+    var celAmortiz = document.createElement("td");
+    var celAmortizValue = document.createTextNode(totAmortiz.toFixed(2));
+    var celBalance = document.createElement("td");
+    var celBalanceValue = document.createTextNode("0.00");
+    celtxtTotl.appendChild(celTxtTotlVl);
+    celParcel.appendChild(celParcelvalue);
+    celInterest.appendChild(celInterestValue);
+    celAmortiz.appendChild(celAmortizValue);
+    celBalance.appendChild(celBalanceValue);
+    row.appendChild(celtxtTotl);
+    row.appendChild(celParcel);
+    row.appendChild(celInterest);
+    row.appendChild(celAmortiz);
+    row.appendChild(celBalance);
+    tbody.appendChild(row);
 }
 
 function calcSAC() {
@@ -205,8 +238,11 @@ function calcTotInterestSac(value, interest) {
 
 }
 function createTabSAC(value, interest, amortiz, nParcel) {
-    if (document.getElementById("tbody").childElementCount > 0) {
+    if (document.getElementById("tbody").childElementCount >0) {
         document.getElementById("tbody").innerHTML = "";
+    }
+    if(document.getElementById("tbodytot").childElementCount>0){
+        document.getElementById("tbodytot").innerHTML = "";
     }
     desocultatabela();
     //TABELA
@@ -215,7 +251,10 @@ function createTabSAC(value, interest, amortiz, nParcel) {
     var row = document.createElement("tr");
     var celula1, celula2, celula3, celula4, celula5;
     var texto1, texto2, texto3, texto4, texto5;
-    var totInterest, parcel;
+    var interestVal, parcel;
+    var totParcel = 0;
+    var totAmortiz = 0;
+    var totInterest = 0;
     var val = value;
     for (var j = 0; j <= nParcel; j++) {
         if (j === 0) {
@@ -243,9 +282,12 @@ function createTabSAC(value, interest, amortiz, nParcel) {
 
             tbody.appendChild(row);
         } else {
-            totInterest = calcTotInterestSac(val, interest);
-            parcel = (totInterest + amortiz);
+            interestVal = calcTotInterestSac(val, interest);
+            parcel = (interestVal + amortiz);
             val = (val - amortiz);
+            totParcel = totParcel + parcel;
+            totInterest = totInterest + interestVal;
+            totAmortiz = totAmortiz + amortiz;
 
             row = document.createElement("tr");
             celula1 = document.createElement("td");
@@ -257,7 +299,7 @@ function createTabSAC(value, interest, amortiz, nParcel) {
             celula2.appendChild(texto2);
             row.appendChild(celula2);
             celula3 = document.createElement("td");
-            texto3 = document.createTextNode(totInterest.toFixed(2));
+            texto3 = document.createTextNode(interestVal.toFixed(2));
             celula3.appendChild(texto3);
             row.appendChild(celula3);
             celula4 = document.createElement("td");
@@ -272,6 +314,30 @@ function createTabSAC(value, interest, amortiz, nParcel) {
             tbody.appendChild(row);
         }
     }
+    //adicionar total no tbody
+    var tbody = document.getElementById("tbodytot");
+    var row = document.createElement("tr");
+    var celtxtTotl = document.createElement("td");
+    var celTxtTotlVl = document.createTextNode("Total");
+    var celParcel = document.createElement("td");
+    var celParcelvalue = document.createTextNode(totParcel.toFixed(2));
+    var celInterest = document.createElement("td");
+    var celInterestValue = document.createTextNode(totInterest.toFixed(2));
+    var celAmortiz = document.createElement("td");
+    var celAmortizValue = document.createTextNode(totAmortiz.toFixed(2));
+    var celBalance = document.createElement("td");
+    var celBalanceValue = document.createTextNode("0.00");
+    celtxtTotl.appendChild(celTxtTotlVl);
+    celParcel.appendChild(celParcelvalue);
+    celInterest.appendChild(celInterestValue);
+    celAmortiz.appendChild(celAmortizValue);
+    celBalance.appendChild(celBalanceValue);
+    row.appendChild(celtxtTotl);
+    row.appendChild(celParcel);
+    row.appendChild(celInterest);
+    row.appendChild(celAmortiz);
+    row.appendChild(celBalance);
+    tbody.appendChild(row);
 }
 
 function ocultabotaoprice() {

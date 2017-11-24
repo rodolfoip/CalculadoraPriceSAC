@@ -8,13 +8,14 @@
     <!--Bootstrap4 CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!--Font-awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="body">
-<header class="navbar navbar-expand-lg navbar-light bg-light menu">
+<header class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="col div-navbar">
-        <i class="fa fa-camera-retro fa-5x"></i>
-        <a class="navbar-brand" href="#" onclick="ocultabotaosac()">Calculadora Price</a>
-        <a class="navbar-brand" href="#" onclick="ocultabotaoprice()">Calculadora SAC</a>
+        <a class="nav-price navbar-brand" href="#" onclick="ocultabotaosac()">Calculadora Price</a>
+        <a class="nav-sac navbar-brand" href="#" onclick="ocultabotaoprice()">Calculadora SAC</a>
     </div>
 </header>
 <div class="container-fluid">
@@ -73,13 +74,13 @@
                         </div>
                     </div>
                     <div class="col btn-group" id="btnprice" role="group">
-                        <button class="btn btn-success btn-sm" type="button" onclick="calcPrice()">
+                        <button class="btn btn-sm btn-price" type="button" onclick="calcPrice()">
                             Calcular
                             Price
                         </button>
                     </div>
                     <div class="col btn-group" style="display: none" id="btnsac" role="group">
-                        <button class="btn btn-danger btn-sm" type="button" onclick="calcSAC()">
+                        <button class="btn btn-sm btn-sac" type="button" onclick="calcSAC()">
                             Calcular SAC
                         </button>
                     </div>
@@ -115,6 +116,7 @@
                 <th>Saldo devedor</th>
                 </thead>
                 <tbody id="tbody">
+                <tbody id="tbodytot">
                 </tbody>
             </table>
         </div>
@@ -122,7 +124,19 @@
 </div>
 <footer>
     <div class="container">
-
+        <div class="row">
+            <div class="col-md-4 footer-left">
+                <p><i class="fa fa-envelope" aria-hidden="true"></i>
+                    Email: rodolfo.pereirailce@gmail.com</p>
+                <p><i class="fa fa-phone" aria-hidden="true"></i>
+                    Contato: (48)9 9833-4031</p>
+                <p><i class="fa fa-github" aria-hidden="true"></i>
+                    GitHub: <a class="a-github" href="https://github.com/rodolfoip">rodolfoip</a></p>
+                <p><i class="fa fa-skype" aria-hidden="true"></i>
+                    Skype: rodolfo.pereirailce@gmail.com</p>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
     </div>
 </footer>
 <script src="js/funcoes.js"></script>

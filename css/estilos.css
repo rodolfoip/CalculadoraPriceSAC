@@ -1,9 +1,23 @@
 .body{
-    background-color: cadetblue;
+    background-color: #ecf0f1;
 }
-/*navba*/
+/*navbar*/
 .div-navbar{
     text-align: center;
+}
+.navbar{
+    border-radius: 5px;
+    margin-top: 1%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #2c3e50;
+}
+.nav-price{
+
+}
+.nav-sac{
+
 }
 /*input*/
 .valor {
@@ -24,14 +38,7 @@
     width: 20%;
     margin-left: 4.4%;
 }
-/*menu*/
-.menu{
-    border-radius: 5px;
-    margin-top: 1%;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-}
+
 /*card instruções*/
 @media (min-width: 992px){
     .card{
@@ -61,7 +68,7 @@
     padding-top: 2%;
 }
 .form{
-    background-color: #ffc33f;
+    background-color: #bdc3c7;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -82,7 +89,14 @@
     width: 100%;
     margin-left: 80px;
 }
-
+.btn-sac{
+    background-color: #9b59b6;
+    color: #f0f0f0;
+}
+.btn-price{
+    background-color: #16a085;
+    color: #f0f0f0;
+}
 .btn-group{
     width: 50%;
     margin-top: 4%;
@@ -109,4 +123,16 @@ table th {
 table td {
     background-color: #f0f0f0;
     color: #0c0c0c;
+}
+/*footer*/
+footer{
+    background-color: #7f8c8d;
+    padding-bottom: 10px;
+}
+.a-github{
+    color: #f0f0f0;
+}
+.footer-left{
+    padding-top: 15px;
+    color: #f0f0f0;
 }
