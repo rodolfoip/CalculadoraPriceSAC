@@ -29,12 +29,12 @@ function validarValoresCampos() {
         exibeAlertas("entrada");
         return false;
     }
-    if (juros < 0.00) {
-        document.getElementById("jurosCampo").value = 0.00;
+    if (juros <= 0.00) {
+        document.getElementById("jurosCampo").value = 0.01;
         exibeAlertas("juros");
         return false;
     }
-    return true;
+        return true;
 }
 
 function validarCamposVazios() {
