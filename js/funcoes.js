@@ -1,9 +1,19 @@
+var campos = {
+    valor: document.getElementById("valorCampo").value,
+    nParcelas: document.getElementById("nParcelasCampo").value,
+    entrada: document.getElementById("entradaCampo").value,
+    juros: document.getElementById("jurosCampo").valueAsNumber
+}
+
 function validarValoresCampos() {
+    //Pega valores dos campos e atribui as variaveis abaixo
     var valor = document.getElementById("valorCampo").value;
     var nParcelas = document.getElementById("nParcelasCampo").value;
     var entrada = document.getElementById("entradaCampo").value;
     var juros = document.getElementById("jurosCampo").valueAsNumber;
+    //se existir algum alerta na tela, ele oculta
     ocultaAlertas();
+    //verifica se os valores dos campos são positivos ou igual a 0
     if (valor < "1") {
         document.getElementById("valorCampo").value = "0";
         exibeAlertas("valor");
@@ -61,7 +71,7 @@ function calculaParcelaPrice(valorPresente, nParcelas, entrada, juros) {
 }
 
 function calculaPrice() {
-    if (validarCamposVazios()&& validarValoresCampos()) {
+    if (validarCamposVazios() && validarValoresCampos()) {
         ocultaAlertas();
         var valor = document.getElementById("valorCampo").value;
         var nParcelas = document.getElementById("nParcelasCampo").value;
@@ -75,34 +85,17 @@ function calculaPrice() {
 }
 
 function criaTabelaPrice(valor, parcela, nParcelas, juros) {
-    //verifica se existe tabela, caso sim, apaga
-    if (document.getElementById("tabela").childElementCount !== 0) {
-        console.log("apagou tabela");
-        document.getElementById("tabela").innerHTML = "";
+    if (document.getElementById("tbody").childElementCount>0){
+        document.getElementById("tbody").innerHTML="";
     }
     desocultatabela();
     //TABELA
-    var corpo = document.getElementById("tabela");
+    var corpoTabela = document.getElementById("tbody");
 
-    var tabela = document.createElement("table");
-    var corpoTabela = document.createElement("tbody");
-    var headerTabela = document.createElement("thead");
-    tabela.setAttribute("class", "table");
-    headerTabela.setAttribute("class", "thead-dark");
-    var colunas = ["Nº", "Valor parcela", "Juros", "Amortização", "Saldo devedor"];
-    var celulaColuna;
-    var textoColuna;
     var linha = document.createElement("tr");
     var celula1, celula2, celula3, celula4, celula5;
     var texto1, texto2, texto3, texto4, texto5;
-    for (var i = 0; i < 5; i++) {
-        celulaColuna = document.createElement("th");
-        textoColuna = document.createTextNode(colunas[i]);
-        celulaColuna.appendChild(textoColuna);
-        linha.appendChild(celulaColuna);
-        headerTabela.appendChild(linha);
-        celulaColuna.setAttribute("class", "col");
-    }
+
     for (var j = 0; j <= nParcelas; j++) {
         if (j === 0) {
             linha = document.createElement("tr");
@@ -159,13 +152,10 @@ function criaTabelaPrice(valor, parcela, nParcelas, juros) {
             corpoTabela.appendChild(linha);
         }
     }
-    tabela.appendChild(headerTabela);
-    tabela.appendChild(corpoTabela);
-    corpo.appendChild(tabela);
 }
 
 function calculaSAC() {
-    if (validarCamposVazios()&& validarValoresCampos()) {
+    if (validarCamposVazios() && validarValoresCampos()) {
         ocultaAlertas();
         var valor = document.getElementById("valorCampo").value;
         var nParcelas = document.getElementById("nParcelasCampo").value;
@@ -180,34 +170,17 @@ function calculaSAC() {
 }
 
 function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
-    //verifica se existe tabela, caso sim, apaga
-    if (document.getElementById("tabela").childElementCount !== 0) {
-        console.log("apagou tabela");
-        document.getElementById("tabela").innerHTML = "";
+    if (document.getElementById("tbody").childElementCount>0){
+        document.getElementById("tbody").innerHTML="";
     }
     desocultatabela();
     //TABELA
-    var corpo = document.getElementById("tabela");
+    var corpoTabela = document.getElementById("tbody");
 
-    var tabela = document.createElement("table");
-    var corpoTabela = document.createElement("tbody");
-    var headerTabela = document.createElement("thead");
-    tabela.setAttribute("class", "table");
-    headerTabela.setAttribute("class", "thead-dark");
-    var colunas = ["Nº", "Valor parcela", "Juros", "Amortização", "Saldo devedor"];
-    var celulaColuna;
-    var textoColuna;
     var linha = document.createElement("tr");
     var celula1, celula2, celula3, celula4, celula5;
     var texto1, texto2, texto3, texto4, texto5;
-    for (var i = 0; i < 5; i++) {
-        celulaColuna = document.createElement("th");
-        textoColuna = document.createTextNode(colunas[i]);
-        celulaColuna.appendChild(textoColuna);
-        linha.appendChild(celulaColuna);
-        headerTabela.appendChild(linha);
-        celulaColuna.setAttribute("class", "col");
-    }
+
     for (var j = 0; j <= nParcelas; j++) {
         if (j === 0) {
             linha = document.createElement("tr");
@@ -263,9 +236,6 @@ function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
             corpoTabela.appendChild(linha);
         }
     }
-    tabela.appendChild(headerTabela);
-    tabela.appendChild(corpoTabela);
-    corpo.appendChild(tabela);
 }
 
 function ocultabotaoprice() {
@@ -281,14 +251,16 @@ function ocultabotaosac() {
 function desocultatabela() {
     document.getElementById("tabela").style.display = "flex";
 }
+
 function ocultaAlertas() {
     document.getElementById("alerta-valor").style.display = "none";
     document.getElementById("alerta-entrada").style.display = "none";
     document.getElementById("alerta-parcela").style.display = "none";
     document.getElementById("alerta-juros").style.display = "none";
 }
+
 function exibeAlertas(campo) {
-    switch (campo){
+    switch (campo) {
         case "valor":
             document.getElementById("alerta-valor").style.display = "inline-block";
             break;
@@ -305,3 +277,8 @@ function exibeAlertas(campo) {
             break;
     }
 }
+
+// S.O.L.I.D (Ver o S de responsabilidade unica)
+// Isolar as funções com closures para evitar ficar exposto no Global
+//gulp
+//webpack

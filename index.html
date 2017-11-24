@@ -11,13 +11,15 @@
 </head>
 <body class="body">
 <header class="navbar navbar-expand-lg navbar-light bg-light menu">
-    <a class="navbar-brand" href="#" onclick="ocultabotaosac()">Calculadora price</a>
-    <a class="navbar-brand" href="#" onclick="ocultabotaoprice()">Calculadora SAC</a>
+    <div class="col div-navbar">
+        <a class="navbar-brand" href="#" onclick="ocultabotaosac()">Calculadora Price</a>
+        <a class="navbar-brand" href="#" onclick="ocultabotaoprice()">Calculadora SAC</a>
+    </div>
 </header>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col"></div>
-        <div class="col div-form">
+        <div class="col-lg-4 col-sm-auto div-form">
             <form>
                 <div class="form-group form">
                     <div class="col div-campo" id="div-from-group">
@@ -74,10 +76,23 @@
         </div>
         <div class="col"></div>
     </div>
+
+</div>
+<div class="container">
     <div class="row">
-        <div class="col"></div>
-        <div class="col-6 div-tabela" id="tabela"></div>
-        <div class="col"></div>
+        <div class="div-table table-responsive" style="display: none" id="tabela">
+            <table class="table" id="table">
+                <thead class="thead-dark">
+                <th>Nº</th>
+                <th>Valor parcela</th>
+                <th>Juros</th>
+                <th>Amortização</th>
+                <th>Saldo devedor</th>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <script src="js/funcoes.js"></script>
