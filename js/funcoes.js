@@ -159,7 +159,6 @@ function createTabPric(parcel, nParcel) {
 
             tbody.appendChild(row);
         } else {
-
             interest = calcTotInterest(value, getInterest());
             amortiz = parcel - interest;
             value = calcBalance(value, amortiz);
