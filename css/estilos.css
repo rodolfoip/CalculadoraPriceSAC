@@ -1,5 +1,5 @@
 .body{
-    background-color: #ecf0f1;
+    background-color: #2980b9;
 }
 /*navbar*/
 .div-navbar{
@@ -40,6 +40,9 @@
 }
 
 /*card instruções*/
+.card{
+    background-color: #d35400;
+}
 @media (min-width: 992px){
     .card{
         width: 75%;
@@ -55,9 +58,6 @@
         margin-right: 20%;
         margin-top: 15px;
     }
-}
-.title-instr{
-
 }
 
 /*Form*/

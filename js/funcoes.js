@@ -40,54 +40,6 @@ var getInterest = function () {
     return fieldInterest();
 }
 
-function validateFields() {
-    //se existir algum alerta na tela, ele oculta
-    hideAlerts();
-    //verifica se os valores dos campos são positivos ou igual a 0
-    if (getValue() < "1") {
-        document.getElementById("valorCampo").value = "0";
-        displayAlerts("valor");
-        return false;
-    }
-    if (getNParcel() < "0") {
-        document.getElementById("nParcelasCampo").value = "0";
-        displayAlerts("parcela");
-        return false;
-    }
-    if (getEntry() < "0") {
-        document.getElementById("entradaCampo").value = "0";
-        displayAlerts("entrada");
-        return false;
-    }
-    if (getInterest() <= 0.00) {
-        document.getElementById("jurosCampo").value = 0.01;
-        displayAlerts("juros");
-        return false;
-    }
-    return true;
-}
-
-function validateEmptFields() {
-    if (getValue() === "") {
-        document.getElementById("valorCampo").focus();
-        return false;
-    }
-    if (getEntry() === "") {
-        document.getElementById("entradaCampo").focus();
-        return false;
-    }
-    if (getNParcel() === "") {
-        document.getElementById("nParcelasCampo").focus();
-        return false;
-    }
-    if (getInterest() < 0) {
-        document.getElementById("jurosCampo").focus();
-        return false;
-    }
-    return true;
-}
-
-
 function calcParcelPrice(valuePresent, entry, interest) {
     //conta para saber valor prestação
     valuePresent = (valuePresent - entry);
@@ -96,12 +48,9 @@ function calcParcelPrice(valuePresent, entry, interest) {
 }
 
 function calcPrice() {
-    if (validateEmptFields() && validateFields()) {
-        hideAlerts();
-        var parcel = calcParcelPrice(getValue(), getEntry(), getInterest());
-        //var value = setValue(getValue());
-        createTabPric(parcel, getNParcel());
-    }
+    var parcel = calcParcelPrice(getValue(), getEntry(), getInterest());
+    //var value = setValue(getValue());
+    createTabPric(parcel, getNParcel());
 }
 
 function calcTotInterest(valor, interest) {
@@ -118,7 +67,7 @@ function createTabPric(parcel, nParcel) {
     if (document.getElementById("tbody").childElementCount > 0) {
         document.getElementById("tbody").innerHTML = "";
     }
-    if(document.getElementById("tbodytot").childElementCount>0){
+    if (document.getElementById("tbodytot").childElementCount > 0) {
         document.getElementById("tbodytot").innerHTML = "";
     }
     desocultatabela();
@@ -162,7 +111,7 @@ function createTabPric(parcel, nParcel) {
             interest = calcTotInterest(value, getInterest());
             amortiz = parcel - interest;
             value = calcBalance(value, amortiz);
-            totParcel = totParcel+ parcel;
+            totParcel = totParcel + parcel;
             totAmortiz = totAmortiz + amortiz;
             console.log(totAmortiz);
             totInterest = totInterest + interest;
@@ -218,29 +167,28 @@ function createTabPric(parcel, nParcel) {
 }
 
 function calcSAC() {
-    if (validateEmptFields() && validateFields()) {
-        hideAlerts();
-        var interest = getInterest();
-        var value = (getValue() - getEntry());
-        var amortiz = calcAmortizSac(value);
-        createTabSAC(value, interest, amortiz, getNParcel());
-    }
+    var interest = getInterest();
+    var value = (getValue() - getEntry());
+    var amortiz = calcAmortizSac(value);
+    createTabSAC(value, interest, amortiz, getNParcel());
 }
 
 function calcAmortizSac(value) {
     var amort = value / getNParcel();
     return amort;
 }
+
 function calcTotInterestSac(value, interest) {
     var totInterest = value * interest;
     return totInterest;
 
 }
+
 function createTabSAC(value, interest, amortiz, nParcel) {
-    if (document.getElementById("tbody").childElementCount >0) {
+    if (document.getElementById("tbody").childElementCount > 0) {
         document.getElementById("tbody").innerHTML = "";
     }
-    if(document.getElementById("tbodytot").childElementCount>0){
+    if (document.getElementById("tbodytot").childElementCount > 0) {
         document.getElementById("tbodytot").innerHTML = "";
     }
     desocultatabela();
@@ -353,33 +301,14 @@ function desocultatabela() {
     document.getElementById("tabela").style.display = "flex";
 }
 
-function hideAlerts() {
-    document.getElementById("alerta-valor").style.display = "none";
-    document.getElementById("alerta-entrada").style.display = "none";
-    document.getElementById("alerta-parcela").style.display = "none";
-    document.getElementById("alerta-juros").style.display = "none";
-}
-
-function displayAlerts(campo) {
-    switch (campo) {
-        case "valor":
-            document.getElementById("alerta-valor").style.display = "inline-block";
-            break;
-        case "entrada":
-            document.getElementById("alerta-entrada").style.display = "inline-block";
-            break;
-        case "parcela":
-            document.getElementById("alerta-parcela").style.display = "inline-block";
-            break;
-        case "juros":
-            document.getElementById("alerta-juros").style.display = "inline-block";
-            break;
-        default:
-            break;
-    }
-}
-
 // S.O.L.I.D (Ver o S de responsabilidade unica)
 // Isolar as funções com closures para evitar ficar exposto no Global
 //gulp
 //webpack
+function isNumber(evt) {
+    var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+    if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+        return false;
+
+    return true;
+}

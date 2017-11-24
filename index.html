@@ -39,38 +39,29 @@
                         <label>Valor:</label>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">R$</span>
-                            <input class="form-control" type="text" id="valorCampo">
-                        </div>
-                        <div id="alerta-valor" class="alert alert-danger" role="alert">
-                            O valor deve ser positivo!
+                            <input class="form-control" type="text" id="valorCampo" onkeypress="return isNumber(event)">
                         </div>
                     </div>
                     <div class="col div-campo">
                         <label>Entrada:</label>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon2">R$</span>
-                            <input value="0" class="form-control" type="text" id="entradaCampo">
-                        </div>
-                        <div id="alerta-entrada" class="alert alert-danger" role="alert">
-                            A entrada não pode ser negativa
+                            <input class="form-control" type="text" id="entradaCampo"
+                                   onkeypress="return isNumber(event)">
                         </div>
                     </div>
                     <div class="col div-campo">
                         <label>Número de parcelas:</label>
                         <div class="input-group">
-                            <input class="form-control" type="text" id="nParcelasCampo">
-                        </div>
-                        <div id="alerta-parcela" class="alert alert-danger" role="alert">
-                            A parcela não pode ser negativa
+                            <input class="form-control" type="text" id="nParcelasCampo"
+                                   onkeypress="return isNumber(event)">
                         </div>
                     </div>
                     <div class="col div-campo">
                         <label>Taxa de juros:(% a.m.)</label>
                         <div class="input-group">
-                            <input class="form-control" type="number" step=0.01 id="jurosCampo">
-                        </div>
-                        <div id="alerta-juros" class="alert alert-danger" role="alert">
-                            A taxa de juros deve ser positiva
+                            <input class="form-control" type="number" min="0.01" step=0.01 id="jurosCampo"
+                                   onkeypress="return isNumber(event)">
                         </div>
                     </div>
                     <div class="col btn-group" id="btnprice" role="group">
