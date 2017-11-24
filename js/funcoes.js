@@ -1,61 +1,85 @@
-var campos = {
-    valor: document.getElementById("valorCampo").value,
-    nParcelas: document.getElementById("nParcelasCampo").value,
-    entrada: document.getElementById("entradaCampo").value,
-    juros: document.getElementById("jurosCampo").valueAsNumber
+var getValue = function () {
+    var value;
+    var fieldValue = function () {
+        value = document.getElementById("valorCampo").value;
+        return value;
+    }
+    return fieldValue();
 }
-
-function validarValoresCampos() {
-    //Pega valores dos campos e atribui as variaveis abaixo
-    var valor = document.getElementById("valorCampo").value;
-    var nParcelas = document.getElementById("nParcelasCampo").value;
-    var entrada = document.getElementById("entradaCampo").value;
-    var juros = document.getElementById("jurosCampo").valueAsNumber;
+var setValue = function (valuee) {
+    var value;
+    var returnValue = function () {
+        value = valuee;
+        return value;
+    }
+    returnValue();
+}
+var getNParcel = function () {
+    var nParcel;
+    var fieldNParcel = function () {
+        nParcel = document.getElementById("nParcelasCampo").value;
+        return nParcel;
+    }
+    return fieldNParcel();
+}
+var getEntry = function () {
+    var entry;
+    var fieldEntry = function () {
+        entry = document.getElementById("entradaCampo").value;
+        return entry;
+    }
+    return fieldEntry();
+}
+var getInterest = function () {
+    var interest;
+    var fieldInterest = function () {
+        interest = document.getElementById("jurosCampo").valueAsNumber;
+        interest = (interest / 100);
+        return interest;
+    }
+    return fieldInterest();
+}
+function validateFields() {
     //se existir algum alerta na tela, ele oculta
-    ocultaAlertas();
+    hideAlerts();
     //verifica se os valores dos campos são positivos ou igual a 0
-    if (valor < "1") {
+    if (getValue() < "1") {
         document.getElementById("valorCampo").value = "0";
-        exibeAlertas("valor");
+        displayAlerts("valor");
         return false;
     }
-    if (nParcelas < "0") {
+    if (getNParcel() < "0") {
         document.getElementById("nParcelasCampo").value = "0";
-        exibeAlertas("parcela");
+        displayAlerts("parcela");
         return false;
     }
-    if (entrada < "0") {
+    if (getEntry() < "0") {
         document.getElementById("entradaCampo").value = "0";
-        exibeAlertas("entrada");
+        displayAlerts("entrada");
         return false;
     }
-    if (juros <= 0.00) {
+    if (getInterest() <= 0.00) {
         document.getElementById("jurosCampo").value = 0.01;
-        exibeAlertas("juros");
+        displayAlerts("juros");
         return false;
     }
-        return true;
+    return true;
 }
 
-function validarCamposVazios() {
-    var valor = document.getElementById("valorCampo").value;
-    var nParcelas = document.getElementById("nParcelasCampo").value;
-    var entrada = document.getElementById("entradaCampo").value;
-    var juros = document.getElementById("jurosCampo").valueAsNumber;
-
-    if (valor === "") {
+function validateEmptFields() {
+    if (getValue() === "") {
         document.getElementById("valorCampo").focus();
         return false;
     }
-    if (entrada === "") {
+    if (getEntry() === "") {
         document.getElementById("entradaCampo").focus();
         return false;
     }
-    if (nParcelas === "") {
+    if (getNParcel() === "") {
         document.getElementById("nParcelasCampo").focus();
         return false;
     }
-    if (juros < 0) {
+    if (getInterest() < 0) {
         document.getElementById("jurosCampo").focus();
         return false;
     }
@@ -63,100 +87,104 @@ function validarCamposVazios() {
 }
 
 
-function calculaParcelaPrice(valorPresente, nParcelas, entrada, juros) {
+function calcParcelPrice(valuePresent, entry, interest) {
     //conta para saber valor prestação
-    valorPresente = (valorPresente - entrada);
-    var valorParcela = valorPresente * (juros * (Math.pow((1 + juros), nParcelas)) / ((Math.pow((1 + juros), nParcelas)) - 1));
-    return valorParcela;
+    valuePresent = (valuePresent - entry);
+    var valueParcel = valuePresent * (interest * (Math.pow((1 + interest), getNParcel())) / ((Math.pow((1 + interest), getNParcel())) - 1));
+    return valueParcel;
 }
 
-function calculaPrice() {
-    if (validarCamposVazios() && validarValoresCampos()) {
-        ocultaAlertas();
-        var valor = document.getElementById("valorCampo").value;
-        var nParcelas = document.getElementById("nParcelasCampo").value;
-        var entrada = document.getElementById("entradaCampo").value;
-        var juros = document.getElementById("jurosCampo").valueAsNumber;
-        juros = (juros / 100);
-        var parcela = calculaParcelaPrice(valor, nParcelas, entrada, juros);
-
-        criaTabelaPrice(valor, parcela, nParcelas, juros);
+function calcPrice() {
+    if (validateEmptFields() && validateFields()) {
+        hideAlerts();
+        var parcel = calcParcelPrice(getValue(), getEntry(), getInterest());
+        //var value = setValue(getValue());
+        createTabPric(parcel, getNParcel());
     }
 }
 
-function criaTabelaPrice(valor, parcela, nParcelas, juros) {
-    if (document.getElementById("tbody").childElementCount>0){
-        document.getElementById("tbody").innerHTML="";
+function calcTotInterest(valor, interest) {
+    var totInterest = valor * interest;
+    return totInterest;
+}
+function calcBalance(value, amortiz) {
+    var balance = value - amortiz;
+    return balance;
+}
+function createTabPric(parcela, nParcelas) {
+    if (document.getElementById("tbody").childElementCount > 0) {
+        document.getElementById("tbody").innerHTML = "";
     }
     desocultatabela();
     //TABELA
-    var corpoTabela = document.getElementById("tbody");
+    var tbody = document.getElementById("tbody");
 
     var linha = document.createElement("tr");
     var celula1, celula2, celula3, celula4, celula5;
     var texto1, texto2, texto3, texto4, texto5;
-
+    var value = getValue();
+    var totInterest, amortiz;
     for (var j = 0; j <= nParcelas; j++) {
         if (j === 0) {
-            linha = document.createElement("tr");
+            row = document.createElement("tr");
             celula1 = document.createElement("td");
             texto1 = document.createTextNode(j);
             celula1.appendChild(texto1);
-            linha.appendChild(celula1);
+            row.appendChild(celula1);
             celula2 = document.createElement("td");
-            texto2 = document.createTextNode(valor);
+            texto2 = document.createTextNode(getValue());
             celula2.appendChild(texto2);
-            linha.appendChild(celula2);
+            row.appendChild(celula2);
             celula3 = document.createElement("td");
             texto3 = document.createTextNode(0);
             celula3.appendChild(texto3);
-            linha.appendChild(celula3);
+            row.appendChild(celula3);
             celula4 = document.createElement("td");
             texto4 = document.createTextNode(0);
             celula4.appendChild(texto4);
-            linha.appendChild(celula4);
+            row.appendChild(celula4);
             celula5 = document.createElement("td");
-            texto5 = document.createTextNode(valor);
+            texto5 = document.createTextNode(getValue());
             celula5.appendChild(texto5);
-            linha.appendChild(celula5);
+            row.appendChild(celula5);
 
-            corpoTabela.appendChild(linha);
+            tbody.appendChild(row);
         } else {
 
-            var totalJuros = valor * juros;
-            var amortizacao = parcela - totalJuros;
-            valor = valor - amortizacao;
+            totInterest = calcTotInterest(value, getInterest());
+            amortiz = parcela - totInterest;
+            value = calcBalance(value,amortiz);
 
-            linha = document.createElement("tr");
+            row = document.createElement("tr");
             celula1 = document.createElement("td");
             texto1 = document.createTextNode(j);
             celula1.appendChild(texto1);
-            linha.appendChild(celula1);
+            row.appendChild(celula1);
             celula2 = document.createElement("td");
             texto2 = document.createTextNode(parcela.toFixed(2));
             celula2.appendChild(texto2);
-            linha.appendChild(celula2);
+            row.appendChild(celula2);
             celula3 = document.createElement("td");
-            texto3 = document.createTextNode(totalJuros.toFixed(2));
+            texto3 = document.createTextNode(totInterest.toFixed(2));
             celula3.appendChild(texto3);
-            linha.appendChild(celula3);
+            row.appendChild(celula3);
             celula4 = document.createElement("td");
-            texto4 = document.createTextNode(amortizacao.toFixed(2));
+            texto4 = document.createTextNode(amortiz.toFixed(2));
             celula4.appendChild(texto4);
-            linha.appendChild(celula4);
+            row.appendChild(celula4);
             celula5 = document.createElement("td");
-            texto5 = document.createTextNode(valor.toFixed(2));
+            texto5 = document.createTextNode(value.toFixed(2));
             celula5.appendChild(texto5);
-            linha.appendChild(celula5);
+            row.appendChild(celula5);
 
-            corpoTabela.appendChild(linha);
+            tbody.appendChild(row);
         }
     }
 }
 
 function calculaSAC() {
-    if (validarCamposVazios() && validarValoresCampos()) {
-        ocultaAlertas();
+    if (validateEmptFields() && validateFields()) {
+        hideAlerts();
         var valor = document.getElementById("valorCampo").value;
         var nParcelas = document.getElementById("nParcelasCampo").value;
         var entrada = document.getElementById("entradaCampo").value;
@@ -170,70 +198,70 @@ function calculaSAC() {
 }
 
 function criarTabelaSAC(valor, juros, amortizacao, nParcelas) {
-    if (document.getElementById("tbody").childElementCount>0){
-        document.getElementById("tbody").innerHTML="";
+    if (document.getElementById("tbody").childElementCount > 0) {
+        document.getElementById("tbody").innerHTML = "";
     }
     desocultatabela();
     //TABELA
     var corpoTabela = document.getElementById("tbody");
 
-    var linha = document.createElement("tr");
+    var row = document.createElement("tr");
     var celula1, celula2, celula3, celula4, celula5;
     var texto1, texto2, texto3, texto4, texto5;
 
     for (var j = 0; j <= nParcelas; j++) {
         if (j === 0) {
-            linha = document.createElement("tr");
+            row = document.createElement("tr");
             celula1 = document.createElement("td");
             texto1 = document.createTextNode(j);
             celula1.appendChild(texto1);
-            linha.appendChild(celula1);
+            row.appendChild(celula1);
             celula2 = document.createElement("td");
             texto2 = document.createTextNode(valor);
             celula2.appendChild(texto2);
-            linha.appendChild(celula2);
+            row.appendChild(celula2);
             celula3 = document.createElement("td");
             texto3 = document.createTextNode(0);
             celula3.appendChild(texto3);
-            linha.appendChild(celula3);
+            row.appendChild(celula3);
             celula4 = document.createElement("td");
             texto4 = document.createTextNode(0);
             celula4.appendChild(texto4);
-            linha.appendChild(celula4);
+            row.appendChild(celula4);
             celula5 = document.createElement("td");
             texto5 = document.createTextNode(valor);
             celula5.appendChild(texto5);
-            linha.appendChild(celula5);
+            row.appendChild(celula5);
 
-            corpoTabela.appendChild(linha);
+            corpoTabela.appendChild(row);
         } else {
             var totalJuros = (valor * juros);
             var parcela = (totalJuros + amortizacao);
             valor = (valor - amortizacao);
 
-            linha = document.createElement("tr");
+            row = document.createElement("tr");
             celula1 = document.createElement("td");
             texto1 = document.createTextNode(j);
             celula1.appendChild(texto1);
-            linha.appendChild(celula1);
+            row.appendChild(celula1);
             celula2 = document.createElement("td");
             texto2 = document.createTextNode(parcela.toFixed(2));
             celula2.appendChild(texto2);
-            linha.appendChild(celula2);
+            row.appendChild(celula2);
             celula3 = document.createElement("td");
             texto3 = document.createTextNode(totalJuros.toFixed(2));
             celula3.appendChild(texto3);
-            linha.appendChild(celula3);
+            row.appendChild(celula3);
             celula4 = document.createElement("td");
             texto4 = document.createTextNode(amortizacao.toFixed(2));
             celula4.appendChild(texto4);
-            linha.appendChild(celula4);
+            row.appendChild(celula4);
             celula5 = document.createElement("td");
             texto5 = document.createTextNode(valor.toFixed(2));
             celula5.appendChild(texto5);
-            linha.appendChild(celula5);
+            row.appendChild(celula5);
 
-            corpoTabela.appendChild(linha);
+            corpoTabela.appendChild(row);
         }
     }
 }
@@ -252,14 +280,14 @@ function desocultatabela() {
     document.getElementById("tabela").style.display = "flex";
 }
 
-function ocultaAlertas() {
+function hideAlerts() {
     document.getElementById("alerta-valor").style.display = "none";
     document.getElementById("alerta-entrada").style.display = "none";
     document.getElementById("alerta-parcela").style.display = "none";
     document.getElementById("alerta-juros").style.display = "none";
 }
 
-function exibeAlertas(campo) {
+function displayAlerts(campo) {
     switch (campo) {
         case "valor":
             document.getElementById("alerta-valor").style.display = "inline-block";
