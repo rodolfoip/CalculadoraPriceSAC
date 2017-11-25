@@ -27,7 +27,6 @@ var getInterest = function () {
     var interest;
     var fieldInterest = function () {
         interest = document.getElementById("jurosCampo").value;
-        interest = (interest / 100);
         return interest;
     };
     return fieldInterest();
@@ -49,13 +48,13 @@ function validateFields() {
         alert.innerHTML = "O campo valor deve ser preenchido";
         return false;
     }
-    if (getValue() > 5000000000){
+    if (getValue() > 5000000000) {
         alert.style.display = "flex";
         document.getElementById("valorCampo").value = "5000000000";
         alert.innerHTML = "O valor máximo para finaciamento é R$ 5 Bilhões";
         return false;
     }
-    if(getEntry() > getValue()){
+    if (getEntry().length > getValue().length) {
         alert.style.display = "flex";
         alert.innerHTML = "A entrada não pode ser maior que o valor";
         document.getElementById("entradaCampo").value = "0";
@@ -66,7 +65,7 @@ function validateFields() {
         alert.innerHTML = "O campo parcela deve ser preenchido";
         return false;
     }
-    if (getNParcel()>360){
+    if (getNParcel() > 360) {
         alert.style.display = "flex";
         document.getElementById("nParcelasCampo").value = "360";
         alert.innerHTML = "O valor máximo de parcelas é 360";
@@ -77,7 +76,7 @@ function validateFields() {
         alert.innerHTML = "O campo juros deve ser preenchido com número positivo";
         return false;
     }
-    if (getInterest()> 100){
+    if (getInterest() > 100) {
         alert.style.display = "flex";
         document.getElementById("jurosCampo").value = "100";
         alert.innerHTML = "A taxa de juros máxima é de 100%";
@@ -91,6 +90,7 @@ function validateFields() {
 function calcParcelPrice(valuePresent, entry, interest) {
     //conta para saber valor prestação
     valuePresent = (valuePresent - entry);
+    interest = interest / 100;
     var valueParcel = valuePresent * (interest * (Math.pow((1 + interest), getNParcel())) / ((Math.pow((1 + interest), getNParcel())) - 1));
     return valueParcel;
 }
@@ -158,7 +158,7 @@ function createTabPric(parcel, nParcel) {
 
             tbody.appendChild(row);
         } else {
-            interest = calcTotInterest(value, getInterest());
+            interest = calcTotInterest(value, (getInterest() / 100));
             amortiz = parcel - interest;
             value = calcBalance(value, amortiz);
             totParcel = totParcel + parcel;
@@ -216,11 +216,14 @@ function createTabPric(parcel, nParcel) {
 }
 
 function calcSAC() {
-    var interest = getInterest();
-    var value = (getValue() - getEntry());
-    var amortiz = calcAmortizSac(value);
-    createTabSAC(value, interest, amortiz, getNParcel());
+    if (validateFields()) {
+        var interest = (getInterest() / 100);
+        var value = (getValue() - getEntry());
+        var amortiz = calcAmortizSac(value);
+        createTabSAC(value, interest, amortiz, getNParcel());
+    }
 }
+
 
 function calcAmortizSac(value) {
     var amort = value / getNParcel();
