@@ -3,39 +3,39 @@ var getValue = function () {
     var fieldValue = function () {
         value = document.getElementById("valorCampo").value;
         return value;
-    }
+    };
     return fieldValue();
-}
+};
 
 var getNParcel = function () {
     var nParcel;
     var fieldNParcel = function () {
         nParcel = document.getElementById("nParcelasCampo").value;
         return nParcel;
-    }
+    };
     return fieldNParcel();
-}
+};
 var getEntry = function () {
     var entry;
     var fieldEntry = function () {
         entry = document.getElementById("entradaCampo").value;
         return entry;
-    }
+    };
     return fieldEntry();
-}
+};
 var getInterest = function () {
     var interest;
     var fieldInterest = function () {
         interest = document.getElementById("jurosCampo").value;
         interest = (interest / 100);
         return interest;
-    }
+    };
     return fieldInterest();
-}
+};
 
 //validação dos campos
 function isNumber(evt) {
-    var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+    var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
     if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
         return false;
 
@@ -189,8 +189,8 @@ function createTabPric(parcel, nParcel) {
         }
     }
     //adicionar total no tbody
-    var tbody = document.getElementById("tbodytot");
-    var row = document.createElement("tr");
+    tbody = document.getElementById("tbodytot");
+    row = document.createElement("tr");
     var celtxtTotl = document.createElement("td");
     var celTxtTotlVl = document.createTextNode("Total");
     var celParcel = document.createElement("td");
@@ -310,8 +310,8 @@ function createTabSAC(value, interest, amortiz, nParcel) {
         }
     }
     //adicionar total no tbody
-    var tbody = document.getElementById("tbodytot");
-    var row = document.createElement("tr");
+    tbody = document.getElementById("tbodytot");
+    row = document.createElement("tr");
     var celtxtTotl = document.createElement("td");
     var celTxtTotlVl = document.createTextNode("Total");
     var celParcel = document.createElement("td");
