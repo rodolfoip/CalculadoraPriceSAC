@@ -1,131 +1,136 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Calculadora Financeira</title>
     <link rel="stylesheet" href="css/estilos.css">
     <!--Bootstrap4 CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
     <!--Font-awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body class="body">
-<header class="navbar navbar-expand-lg">
-    <div class="col div-navbar">
-        <a class="nav-price navbar-brand" href="#" onclick="ocultabotaosac()">Calculadora Price</a>
-        <a class="nav-sac navbar-brand" href="#" onclick="ocultabotaoprice()">Calculadora SAC</a>
-    </div>
-</header>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col col-lg-4 .col-sm-2">
-            <div class="card">
-                <img class="card-img-top" src="img/Instrucoes-054-1.png">
-                <div class="card-body">
-                    <h5 class="title-instr">Calculadora</h5>
-                    <p class="card-text">Para calcular usando financiamento Price clique em calculadora Price, caso seja
-                        SAC
-                        clique em calculadora SAC.
-                    </p>
-                    <p class="card-text">
-                        <strong>Valor:</strong> Insira o valor do financiamento.
-                        <strong>Entrada:</strong> Insira a entrada caso fincanciamento tiver uma entrada no
-                        pagamento.<br>
-                        <strong>Número de parcelas</strong> Insira o número de parcelas que o financiamento terá.<br>
-                        <strong>Juros:</strong> Insira a taxa de juros do financiamento.
-                    </p>
+    <header class="navbar navbar-expand-lg">
+        <div class="col div-navbar">
+            <a class="nav-price navbar-brand" href="#" onclick="ocultabotaosac()">Calculadora Price</a>
+            <a class="nav-sac navbar-brand" href="#" onclick="ocultabotaoprice()">Calculadora SAC</a>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-lg-4 .col-sm-2">
+                <div class="card">
+                    <img class="card-img-top" src="img/Instrucoes-054-1.png">
+                    <div class="card-body">
+                        <h5 class="title-instr">Calculadora</h5>
+                        <p class="card-text">Para calcular usando financiamento Price clique em calculadora Price, caso seja SAC clique em calculadora
+                            SAC.
+                        </p>
+                        <p class="card-text">
+                            <strong>Valor:</strong> Insira o valor do financiamento.
+                            <strong>Entrada:</strong> Insira a entrada caso fincanciamento tiver uma entrada no pagamento.
+                            <br>
+                            <strong>Número de parcelas</strong> Insira o número de parcelas que o financiamento terá.
+                            <br>
+                            <strong>Juros:</strong> Insira a taxa de juros do financiamento.
+                        </p>
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-4 col-sm-auto div-form">
+                <form>
+                    <div class="alert alert-danger" id="alert" role="alert"></div>
+                    <div class="form-group form">
+                        <div class="col div-campo" id="div-from-group">
+                            <label>Valor:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">R$</span>
+                                <input class="form-control" type="text" id="valorCampo" onkeypress="return isNumber(event)">
+                            </div>
+                        </div>
+                        <div class="col div-campo">
+                            <label>Entrada:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon2">R$</span>
+                                <input class="form-control" type="text" id="entradaCampo" onkeypress="return isNumber(event)">
+                            </div>
+                        </div>
+                        <div class="col div-campo">
+                            <label>Número de parcelas:</label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="nParcelasCampo" onkeypress="return isNumber(event)">
+                            </div>
+                        </div>
+                        <div class="col div-campo">
+                            <label>Taxa de juros:(% a.m.)</label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="jurosCampo" onkeypress="return isNumber(event)">
+                            </div>
+                        </div>
+                        <div class="col btn-group" id="btnprice" role="group">
+                            <button class="btn btn-sm btn-price" type="button" onclick="calcPrice()">
+                                Calcular Price
+                            </button>
+                        </div>
+                        <div class="col btn-group" style="display: none" id="btnsac" role="group">
+                            <button class="btn btn-sm btn-sac" type="button" onclick="calcSAC()">
+                                Calcular SAC
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+            </div>
         </div>
-        <div class="col-lg-4 col-sm-auto div-form">
-            <form>
-                <div class="alert alert-danger" id="alert" role="alert"></div>
-                <div class="form-group form">
-                    <div class="col div-campo" id="div-from-group">
-                        <label>Valor:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1">R$</span>
-                            <input class="form-control" type="text" id="valorCampo" onkeypress="return isNumber(event)">
-                        </div>
-                    </div>
-                    <div class="col div-campo">
-                        <label>Entrada:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon2">R$</span>
-                            <input class="form-control" type="text" id="entradaCampo"
-                                   onkeypress="return isNumber(event)">
-                        </div>
-                    </div>
-                    <div class="col div-campo">
-                        <label>Número de parcelas:</label>
-                        <div class="input-group">
-                            <input class="form-control" type="text" id="nParcelasCampo"
-                                   onkeypress="return isNumber(event)">
-                        </div>
-                    </div>
-                    <div class="col div-campo">
-                        <label>Taxa de juros:(% a.m.)</label>
-                        <div class="input-group">
-                            <input class="form-control" type="text" id="jurosCampo"
-                                   onkeypress="return isNumber(event)">
-                        </div>
-                    </div>
-                    <div class="col btn-group" id="btnprice" role="group">
-                        <button class="btn btn-sm btn-price" type="button" onclick="calcPrice()">
-                            Calcular
-                            Price
-                        </button>
-                    </div>
-                    <div class="col btn-group" style="display: none" id="btnsac" role="group">
-                        <button class="btn btn-sm btn-sac" type="button" onclick="calcSAC()">
-                            Calcular SAC
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col">
-        </div>
-    </div>
 
-</div>
-<div class="container">
-    <div class="row">
-        <div class="div-table table-responsive" style="display: none" id="tabela">
-            <table class="table" id="table">
-                <thead class="thead-dark">
-                <th>Nº</th>
-                <th>Valor parcela</th>
-                <th>Juros</th>
-                <th>Amortização</th>
-                <th>Saldo devedor</th>
-                </thead>
-                <tbody id="tbody">
-                <tbody id="tbodytot">
-                </tbody>
-            </table>
-        </div>
     </div>
-</div>
-<footer>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 footer-left">
-                <p><i class="fa fa-envelope" aria-hidden="true"></i>
-                    Email: rodolfo.pereirailce@gmail.com</p>
-                <p><i class="fa fa-phone" aria-hidden="true"></i>
-                    Contato: (48)9 9833-4031</p>
-                <p><i class="fa fa-github" aria-hidden="true"></i>
-                    GitHub: <a class="a-github" href="https://github.com/rodolfoip">rodolfoip</a></p>
-                <p><i class="fa fa-skype" aria-hidden="true"></i>
-                    Skype: rodolfo.pereirailce@gmail.com</p>
+            <div class="div-table table-responsive" style="display: none" id="tabela">
+                <table class="table" id="table">
+                    <thead class="thead-dark">
+                        <th>Nº</th>
+                        <th>Valor parcela</th>
+                        <th>Juros</th>
+                        <th>Amortização</th>
+                        <th>Saldo devedor</th>
+                    </thead>
+                    <tbody id="tbody">
+                        <tbody id="tbodytot">
+                        </tbody>
+                </table>
             </div>
-            <div class="col-md-8"></div>
         </div>
     </div>
-</footer>
-<script src="js/funcoes.js"></script>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-left">
+                    <p>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        Email: rodolfo.pereirailce@gmail.com</p>
+                    <p>
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        Contato: (48)9 9833-4031</p>
+                    <p>
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        GitHub:
+                        <a class="a-github" href="https://github.com/rodolfoip">rodolfoip</a>
+                    </p>
+                    <p>
+                        <i class="fa fa-skype" aria-hidden="true"></i>
+                        Skype: rodolfo.pereirailce@gmail.com</p>
+                </div>
+                <div class="col-md-8"></div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/funcoes.js"></script>
 </body>
+
 </html>

@@ -58,6 +58,7 @@ function validateFields() {
     if(getEntry() > getValue()){
         alert.style.display = "flex";
         alert.innerHTML = "A entrada não pode ser maior que o valor";
+        document.getElementById("entradaCampo").value = "0";
         return false;
     }
     if (!getNParcel()) {
@@ -348,8 +349,3 @@ function ocultabotaosac() {
 function desocultatabela() {
     document.getElementById("tabela").style.display = "flex";
 }
-
-// S.O.L.I.D (Ver o S de responsabilidade unica)
-// Isolar as funções com closures para evitar ficar exposto no Global
-//gulp
-//webpack
