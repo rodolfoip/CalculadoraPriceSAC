@@ -2,7 +2,9 @@
     background-color: #95a5a6;
 }
 
+
 /*navbar*/
+
 .div-navbar {
     text-align: center;
 }
@@ -13,7 +15,7 @@
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
-    background-color: #e74c3c;
+    background-color: #27ae60;
     color: white;
 }
 
@@ -24,10 +26,14 @@
 .nav-sac {
     color: white;
 }
+
+
 /*card instruções*/
-.title-instr{
+
+.title-instr {
     text-align: center;
 }
+
 .card {
     background-color: #d35400;
     margin-bottom: 20px;
@@ -51,7 +57,9 @@
     }
 }
 
+
 /*Form*/
+
 .div-form {
     padding-top: 10%;
 }
@@ -61,7 +69,7 @@
 }
 
 .form {
-    background-color: #1abc9c;
+    background-color: #2c3e50;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -72,7 +80,10 @@
     border-radius: 10px;
     padding-bottom: 4%;
 }
+
+
 /*input*/
+
 .valor {
     width: 20%;
     margin-left: 9.6%;
@@ -91,9 +102,11 @@
     width: 20%;
     margin-left: 4.4%;
 }
-label{
+
+label {
     color: white;
 }
+
 .alert {
     display: none;
     width: 100%;
@@ -101,11 +114,14 @@ label{
     margin-top: 10px;
 }
 
+
 /*botoes do fomulario*/
+
 .btn {
     margin-top: 2%;
     width: 100%;
     margin-left: 80px;
+    font-weight: bold;
 }
 
 .btn-sac {
@@ -114,7 +130,7 @@ label{
 }
 
 .btn-price {
-    background-color: #f1c40f;
+    background-color: #e67e22;
     color: #f0f0f0;
 }
 
@@ -123,11 +139,13 @@ label{
     margin-top: 4%;
 }
 
+
 /*tabela*/
+
 @media (min-width: 992px) {
     .div-table {
         width: 50%;
-        margin-left: 20%;
+        margin-left: 283px;
         margin-right: 20%;
         display: none;
     }
@@ -136,7 +154,6 @@ label{
 table {
     width: 50%;
     border-collapse: separate;
-    border-radius: 20px;
 }
 
 table th {
@@ -148,7 +165,9 @@ table td {
     color: #0c0c0c;
 }
 
+
 /*footer*/
+
 footer {
     background-color: #34495e;
     padding-bottom: 10px;

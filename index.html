@@ -7,7 +7,7 @@
     <title>Calculadora Financeira</title>
     <link rel="stylesheet" href="css/estilos.css">
     <!--Bootstrap4 CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     <!--Font-awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,8 +16,12 @@
 <body class="body">
     <header class="navbar navbar-expand-lg">
         <div class="col div-navbar">
-            <a class="nav-price navbar-brand" href="#" onclick="ocultabotaosac()">Calculadora Price</a>
-            <a class="nav-sac navbar-brand" href="#" onclick="ocultabotaoprice()">Calculadora SAC</a>
+            <a class="nav-price navbar-brand" href="#" onclick="ocultabotaosac()">
+                <i class="fa fa-calculator" aria-hidden="true"></i>
+                Calculadora Price</a>
+            <a class="nav-sac navbar-brand" href="#" onclick="ocultabotaoprice()">
+                <i class="fa fa-calculator" aria-hidden="true"></i>
+                Calculadora SAC</a>
         </div>
     </header>
     <div class="container-fluid">
@@ -73,12 +77,12 @@
                         </div>
                         <div class="col btn-group" id="btnprice" role="group">
                             <button class="btn btn-sm btn-price" type="button" onclick="calcPrice()">
-                                Calcular Price
+                                <b>Calcular Price</b>
                             </button>
                         </div>
                         <div class="col btn-group" style="display: none" id="btnsac" role="group">
                             <button class="btn btn-sm btn-sac" type="button" onclick="calcSAC()">
-                                Calcular SAC
+                                <b> Calcular SAC</b>
                             </button>
                         </div>
                     </div>
