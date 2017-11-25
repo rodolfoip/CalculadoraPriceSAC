@@ -6,14 +6,7 @@ var getValue = function () {
     }
     return fieldValue();
 }
-var setValue = function (valuee) {
-    var value;
-    var returnValue = function () {
-        value = valuee;
-        return value;
-    }
-    returnValue();
-}
+
 var getNParcel = function () {
     var nParcel;
     var fieldNParcel = function () {
@@ -33,11 +26,65 @@ var getEntry = function () {
 var getInterest = function () {
     var interest;
     var fieldInterest = function () {
-        interest = document.getElementById("jurosCampo").valueAsNumber;
+        interest = document.getElementById("jurosCampo").value;
         interest = (interest / 100);
         return interest;
     }
     return fieldInterest();
+}
+
+//validação dos campos
+function isNumber(evt) {
+    var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+    if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+        return false;
+
+    return true;
+}
+
+function validateFields() {
+    var alert = document.getElementById("alert");
+    if (!getValue()) {
+        alert.style.display = "flex";
+        alert.innerHTML = "O campo valor deve ser preenchido";
+        return false;
+    }
+    if (getValue() > 5000000000){
+        alert.style.display = "flex";
+        document.getElementById("valorCampo").value = "5000000000";
+        alert.innerHTML = "O valor máximo para finaciamento é R$ 5 Bilhões";
+        return false;
+    }
+    if(getEntry() > getValue()){
+        alert.style.display = "flex";
+        alert.innerHTML = "A entrada não pode ser maior que o valor";
+        return false;
+    }
+    if (!getNParcel()) {
+        alert.style.display = "flex";
+        alert.innerHTML = "O campo parcela deve ser preenchido";
+        return false;
+    }
+    if (getNParcel()>360){
+        alert.style.display = "flex";
+        document.getElementById("nParcelasCampo").value = "360";
+        alert.innerHTML = "O valor máximo de parcelas é 360";
+        return false;
+    }
+    if (getInterest() == "0" && getNParcel() > "0") {
+        alert.style.display = "flex";
+        alert.innerHTML = "O campo juros deve ser preenchido com número positivo";
+        return false;
+    }
+    if (getInterest()> 100){
+        alert.style.display = "flex";
+        document.getElementById("jurosCampo").value = "100";
+        alert.innerHTML = "A taxa de juros máxima é de 100%";
+        return false;
+    }
+    alert.style.display = "none";
+    return true;
+
 }
 
 function calcParcelPrice(valuePresent, entry, interest) {
@@ -48,9 +95,11 @@ function calcParcelPrice(valuePresent, entry, interest) {
 }
 
 function calcPrice() {
-    var parcel = calcParcelPrice(getValue(), getEntry(), getInterest());
-    //var value = setValue(getValue());
-    createTabPric(parcel, getNParcel());
+    if (validateFields()) {
+        var parcel = calcParcelPrice(getValue(), getEntry(), getInterest());
+        createTabPric(parcel, getNParcel());
+    }
+
 }
 
 function calcTotInterest(valor, interest) {
@@ -75,8 +124,8 @@ function createTabPric(parcel, nParcel) {
     var tbody = document.getElementById("tbody");
 
     var row = document.createElement("tr");
-    var celula1, celula2, celula3, celula4, celula5;
-    var texto1, texto2, texto3, texto4, texto5;
+    var cel1, cel2, cel3, cel4, cel5;
+    var txt1, txt2, txt3, txt4, txt5;
     var value = getValue();
     var interest, amortiz;
     var totParcel = 0;
@@ -85,26 +134,26 @@ function createTabPric(parcel, nParcel) {
     for (var j = 0; j <= nParcel; j++) {
         if (j === 0) {
             row = document.createElement("tr");
-            celula1 = document.createElement("td");
-            texto1 = document.createTextNode(j);
-            celula1.appendChild(texto1);
-            row.appendChild(celula1);
-            celula2 = document.createElement("td");
-            texto2 = document.createTextNode(getValue());
-            celula2.appendChild(texto2);
-            row.appendChild(celula2);
-            celula3 = document.createElement("td");
-            texto3 = document.createTextNode(0);
-            celula3.appendChild(texto3);
-            row.appendChild(celula3);
-            celula4 = document.createElement("td");
-            texto4 = document.createTextNode(0);
-            celula4.appendChild(texto4);
-            row.appendChild(celula4);
-            celula5 = document.createElement("td");
-            texto5 = document.createTextNode(getValue());
-            celula5.appendChild(texto5);
-            row.appendChild(celula5);
+            cel1 = document.createElement("td");
+            txt1 = document.createTextNode(j);
+            cel1.appendChild(txt1);
+            row.appendChild(cel1);
+            cel2 = document.createElement("td");
+            txt2 = document.createTextNode(getValue());
+            cel2.appendChild(txt2);
+            row.appendChild(cel2);
+            cel3 = document.createElement("td");
+            txt3 = document.createTextNode(0);
+            cel3.appendChild(txt3);
+            row.appendChild(cel3);
+            cel4 = document.createElement("td");
+            txt4 = document.createTextNode(0);
+            cel4.appendChild(txt4);
+            row.appendChild(cel4);
+            cel5 = document.createElement("td");
+            txt5 = document.createTextNode(getValue());
+            cel5.appendChild(txt5);
+            row.appendChild(cel5);
 
             tbody.appendChild(row);
         } else {
@@ -113,30 +162,29 @@ function createTabPric(parcel, nParcel) {
             value = calcBalance(value, amortiz);
             totParcel = totParcel + parcel;
             totAmortiz = totAmortiz + amortiz;
-            console.log(totAmortiz);
             totInterest = totInterest + interest;
 
             row = document.createElement("tr");
-            celula1 = document.createElement("td");
-            texto1 = document.createTextNode(j);
-            celula1.appendChild(texto1);
-            row.appendChild(celula1);
-            celula2 = document.createElement("td");
-            texto2 = document.createTextNode(parcel.toFixed(2));
-            celula2.appendChild(texto2);
-            row.appendChild(celula2);
-            celula3 = document.createElement("td");
-            texto3 = document.createTextNode(interest.toFixed(2));
-            celula3.appendChild(texto3);
-            row.appendChild(celula3);
-            celula4 = document.createElement("td");
-            texto4 = document.createTextNode(amortiz.toFixed(2));
-            celula4.appendChild(texto4);
-            row.appendChild(celula4);
-            celula5 = document.createElement("td");
-            texto5 = document.createTextNode(value.toFixed(2));
-            celula5.appendChild(texto5);
-            row.appendChild(celula5);
+            cel1 = document.createElement("td");
+            txt1 = document.createTextNode(j);
+            cel1.appendChild(txt1);
+            row.appendChild(cel1);
+            cel2 = document.createElement("td");
+            txt2 = document.createTextNode(parcel.toFixed(2));
+            cel2.appendChild(txt2);
+            row.appendChild(cel2);
+            cel3 = document.createElement("td");
+            txt3 = document.createTextNode(interest.toFixed(2));
+            cel3.appendChild(txt3);
+            row.appendChild(cel3);
+            cel4 = document.createElement("td");
+            txt4 = document.createTextNode(amortiz.toFixed(2));
+            cel4.appendChild(txt4);
+            row.appendChild(cel4);
+            cel5 = document.createElement("td");
+            txt5 = document.createTextNode(value.toFixed(2));
+            cel5.appendChild(txt5);
+            row.appendChild(cel5);
             tbody.appendChild(row);
         }
     }
@@ -196,8 +244,8 @@ function createTabSAC(value, interest, amortiz, nParcel) {
     var tbody = document.getElementById("tbody");
 
     var row = document.createElement("tr");
-    var celula1, celula2, celula3, celula4, celula5;
-    var texto1, texto2, texto3, texto4, texto5;
+    var cel1, cel2, cel3, cel4, cel5;
+    var txt1, txt2, txt3, txt4, txt5;
     var interestVal, parcel;
     var totParcel = 0;
     var totAmortiz = 0;
@@ -206,26 +254,26 @@ function createTabSAC(value, interest, amortiz, nParcel) {
     for (var j = 0; j <= nParcel; j++) {
         if (j === 0) {
             row = document.createElement("tr");
-            celula1 = document.createElement("td");
-            texto1 = document.createTextNode(j);
-            celula1.appendChild(texto1);
-            row.appendChild(celula1);
-            celula2 = document.createElement("td");
-            texto2 = document.createTextNode(getValue());
-            celula2.appendChild(texto2);
-            row.appendChild(celula2);
-            celula3 = document.createElement("td");
-            texto3 = document.createTextNode(0);
-            celula3.appendChild(texto3);
-            row.appendChild(celula3);
-            celula4 = document.createElement("td");
-            texto4 = document.createTextNode(0);
-            celula4.appendChild(texto4);
-            row.appendChild(celula4);
-            celula5 = document.createElement("td");
-            texto5 = document.createTextNode(getValue());
-            celula5.appendChild(texto5);
-            row.appendChild(celula5);
+            cel1 = document.createElement("td");
+            txt1 = document.createTextNode(j);
+            cel1.appendChild(txt1);
+            row.appendChild(cel1);
+            cel2 = document.createElement("td");
+            txt2 = document.createTextNode(getValue());
+            cel2.appendChild(txt2);
+            row.appendChild(cel2);
+            cel3 = document.createElement("td");
+            txt3 = document.createTextNode(0);
+            cel3.appendChild(txt3);
+            row.appendChild(cel3);
+            cel4 = document.createElement("td");
+            txt4 = document.createTextNode(0);
+            cel4.appendChild(txt4);
+            row.appendChild(cel4);
+            cel5 = document.createElement("td");
+            txt5 = document.createTextNode(getValue());
+            cel5.appendChild(txt5);
+            row.appendChild(cel5);
 
             tbody.appendChild(row);
         } else {
@@ -237,26 +285,26 @@ function createTabSAC(value, interest, amortiz, nParcel) {
             totAmortiz = totAmortiz + amortiz;
 
             row = document.createElement("tr");
-            celula1 = document.createElement("td");
-            texto1 = document.createTextNode(j);
-            celula1.appendChild(texto1);
-            row.appendChild(celula1);
-            celula2 = document.createElement("td");
-            texto2 = document.createTextNode(parcel.toFixed(2));
-            celula2.appendChild(texto2);
-            row.appendChild(celula2);
-            celula3 = document.createElement("td");
-            texto3 = document.createTextNode(interestVal.toFixed(2));
-            celula3.appendChild(texto3);
-            row.appendChild(celula3);
-            celula4 = document.createElement("td");
-            texto4 = document.createTextNode(amortiz.toFixed(2));
-            celula4.appendChild(texto4);
-            row.appendChild(celula4);
-            celula5 = document.createElement("td");
-            texto5 = document.createTextNode(val.toFixed(2));
-            celula5.appendChild(texto5);
-            row.appendChild(celula5);
+            cel1 = document.createElement("td");
+            txt1 = document.createTextNode(j);
+            cel1.appendChild(txt1);
+            row.appendChild(cel1);
+            cel2 = document.createElement("td");
+            txt2 = document.createTextNode(parcel.toFixed(2));
+            cel2.appendChild(txt2);
+            row.appendChild(cel2);
+            cel3 = document.createElement("td");
+            txt3 = document.createTextNode(interestVal.toFixed(2));
+            cel3.appendChild(txt3);
+            row.appendChild(cel3);
+            cel4 = document.createElement("td");
+            txt4 = document.createTextNode(amortiz.toFixed(2));
+            cel4.appendChild(txt4);
+            row.appendChild(cel4);
+            cel5 = document.createElement("td");
+            txt5 = document.createTextNode(val.toFixed(2));
+            cel5.appendChild(txt5);
+            row.appendChild(cel5);
 
             tbody.appendChild(row);
         }
@@ -305,10 +353,3 @@ function desocultatabela() {
 // Isolar as funções com closures para evitar ficar exposto no Global
 //gulp
 //webpack
-function isNumber(evt) {
-    var iKeyCode = (evt.which) ? evt.which : evt.keyCode
-    if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
-        return false;
-
-    return true;
-}

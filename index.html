@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="body">
-<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+<header class="navbar navbar-expand-lg">
     <div class="col div-navbar">
         <a class="nav-price navbar-brand" href="#" onclick="ocultabotaosac()">Calculadora Price</a>
         <a class="nav-sac navbar-brand" href="#" onclick="ocultabotaoprice()">Calculadora SAC</a>
@@ -29,11 +29,19 @@
                         SAC
                         clique em calculadora SAC.
                     </p>
+                    <p class="card-text">
+                        <strong>Valor:</strong> Insira o valor do financiamento.
+                        <strong>Entrada:</strong> Insira a entrada caso fincanciamento tiver uma entrada no
+                        pagamento.<br>
+                        <strong>Número de parcelas</strong> Insira o número de parcelas que o financiamento terá.<br>
+                        <strong>Juros:</strong> Insira a taxa de juros do financiamento.
+                    </p>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-sm-auto div-form">
             <form>
+                <div class="alert alert-danger" id="alert" role="alert"></div>
                 <div class="form-group form">
                     <div class="col div-campo" id="div-from-group">
                         <label>Valor:</label>
@@ -60,7 +68,7 @@
                     <div class="col div-campo">
                         <label>Taxa de juros:(% a.m.)</label>
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0.01" step=0.01 id="jurosCampo"
+                            <input class="form-control" type="text" id="jurosCampo"
                                    onkeypress="return isNumber(event)">
                         </div>
                     </div>
@@ -79,18 +87,6 @@
             </form>
         </div>
         <div class="col">
-            <div class="card">
-                <img class="card-img-top" src="img/Instrucoes-054-1.png">
-                <div class="card-body">
-                    <p class="card-text">
-                        <strong>Valor:</strong> Insira o valor do financiamento.
-                        <strong>Entrada:</strong> Insira a entrada caso fincanciamento tiver uma entrada no
-                        pagamento.<br>
-                        <strong>Número de parcelas</strong> Insira o número de parcelas que o financiamento terá.<br>
-                        <strong>Juros:</strong> Insira a taxa de juros do financiamento.
-                    </p>
-                </div>
-            </div>
         </div>
     </div>
 
