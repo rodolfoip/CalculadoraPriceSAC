@@ -33,11 +33,19 @@ var getInterest = function () {
 };
 
 //validação dos campos
-function isNumber(evt) {
+function isNumberFloat(evt) {
     var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
     if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
         return false;
 
+    return true;
+}
+
+function isNumber(evt) {
+    var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+    if (iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57)) {
+        return false;
+    }
     return true;
 }
 
@@ -71,7 +79,12 @@ function validateFields() {
         alert.innerHTML = "O valor máximo de parcelas é 360";
         return false;
     }
-    if (getInterest() == "0" && getNParcel() > "0") {
+    if (getInterest() === "0") {
+        alert.style.display = "flex";
+        alert.innerHTML = "O campo juros deve ser preenchido com número positivo";
+        return false;
+    }
+    if (!getInterest()){
         alert.style.display = "flex";
         alert.innerHTML = "O campo juros deve ser preenchido com número positivo";
         return false;
