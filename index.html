@@ -15,10 +15,10 @@
 <body class="body">
     <header class="navbar navbar-expand-lg">
         <div class="col div-navbar">
-            <a class="nav-price navbar-brand" href="#" onclick="ocultabotaosac()">
+            <a class="nav-price navbar-brand" href="#" onclick="hideBtnSac()">
                 <i class="fa fa-calculator" aria-hidden="true"></i>
                 Calculadora Price</a>
-            <a class="nav-sac navbar-brand" href="#" onclick="ocultabotaoprice()">
+            <a class="nav-sac navbar-brand" href="#" onclick="hideBtnPrice()">
                 <i class="fa fa-calculator" aria-hidden="true"></i>
                 Calculadora SAC</a>
         </div>
@@ -48,30 +48,30 @@
                 <form>
                     <div class="alert alert-danger" id="alert" role="alert"></div>
                     <div class="form-group form">
-                        <div class="col div-campo" id="div-from-group">
+                        <div class="col div-field" id="div-from-group">
                             <label>Valor:</label>
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">R$</span>
-                                <input class="form-control" data-mask="00/00/00" type="text" id="valorCampo" onkeypress="return isNumberFloat(event)">
+                                <input class="form-control" data-mask="00/00/00" type="text" id="valueInput" onkeypress="return isNumberFloat(event)">
                             </div>
                         </div>
-                        <div class="col div-campo">
+                        <div class="col div-field">
                             <label>Entrada:</label>
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon2">R$</span>
-                                <input class="form-control" type="text" id="entradaCampo" onkeypress="return isNumberFloat(event)">
+                                <input class="form-control" type="text" id="entryInput" onkeypress="return isNumberFloat(event)">
                             </div>
                         </div>
-                        <div class="col div-campo">
+                        <div class="col div-field">
                             <label>Número de parcelas:</label>
                             <div class="input-group">
-                                <input class="form-control" type="text" id="nParcelasCampo" onkeypress="return isNumber(event)">
+                                <input class="form-control" type="text" id="nParcelInput" onkeypress="return isNumber(event)">
                             </div>
                         </div>
-                        <div class="col div-campo">
+                        <div class="col div-field">
                             <label>Taxa de juros:(% a.m.)</label>
                             <div class="input-group">
-                                <input class="form-control" type="text" id="jurosCampo" onkeypress="return isNumberFloat(event)">
+                                <input class="form-control" type="text" id="interestInput" onkeypress="return isNumberFloat(event)">
                             </div>
                         </div>
                         <div class="col btn-group" id="btnprice" role="group">
@@ -94,7 +94,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="div-table table-responsive" style="display: none" id="tabela">
+            <div class="div-table table-responsive" style="display: none" id="div-table">
                 <table class="table" id="table">
                     <thead class="thead-dark">
                         <th>Nº</th>

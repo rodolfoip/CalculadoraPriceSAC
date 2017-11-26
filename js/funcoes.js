@@ -1,7 +1,8 @@
+//Pega valores dos campos no HTML
 var getValue = function () {
     var value;
     var fieldValue = function () {
-        value = document.getElementById("valorCampo").value;
+        value = document.getElementById("valueInput").value;
         return value;
     };
     return fieldValue();
@@ -10,7 +11,7 @@ var getValue = function () {
 var getNParcel = function () {
     var nParcel;
     var fieldNParcel = function () {
-        nParcel = document.getElementById("nParcelasCampo").value;
+        nParcel = document.getElementById("nParcelInput").value;
         return nParcel;
     };
     return fieldNParcel();
@@ -18,7 +19,7 @@ var getNParcel = function () {
 var getEntry = function () {
     var entry;
     var fieldEntry = function () {
-        entry = document.getElementById("entradaCampo").value;
+        entry = document.getElementById("entryInput").value;
         return entry;
     };
     return fieldEntry();
@@ -26,13 +27,14 @@ var getEntry = function () {
 var getInterest = function () {
     var interest;
     var fieldInterest = function () {
-        interest = document.getElementById("jurosCampo").value;
+        interest = document.getElementById("interestInput").value;
         return interest;
     };
     return fieldInterest();
 };
 
 //validação dos campos
+//Permite que seja digitado apenas valores numericos e pontos
 function isNumberFloat(evt) {
     var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
     if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
@@ -40,7 +42,7 @@ function isNumberFloat(evt) {
 
     return true;
 }
-
+//Permite que seja digitado apenas valores numericos
 function isNumber(evt) {
     var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
     if (iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57)) {
@@ -48,7 +50,7 @@ function isNumber(evt) {
     }
     return true;
 }
-
+//verifica se os campos estão vazios ou com valores incorretos
 function validateFields() {
     var alert = document.getElementById("alert");
     var value = parseFloat(getValue());
@@ -60,18 +62,18 @@ function validateFields() {
     }
     if (value > 5000000000) {
         alert.style.display = "flex";
-        document.getElementById("valorCampo").value = "5000000000";
+        document.getElementById("valueInput").value = "5000000000";
         alert.innerHTML = "O valor máximo para finaciamento é R$ 5 Bilhões";
         return false;
     }
     if (value <= entry) {
         alert.style.display = "flex";
         alert.innerHTML = "A entrada deve ser menor que o valor";
-        document.getElementById("entradaCampo").value = "0";
+        document.getElementById("entryInput").value = "0";
         return false;
     }
     if (entry > 5000000000) {
-        document.getElementById("entradaCampo").value = "5000000000";
+        document.getElementById("entryInput").value = "5000000000";
         alert.style.display = "flex";
         alert.innerHTML = "O valor máximo para entrada é R$ 5 Bilhões";
         return false;
@@ -83,7 +85,7 @@ function validateFields() {
     }
     if (getNParcel() > 360) {
         alert.style.display = "flex";
-        document.getElementById("nParcelasCampo").value = "360";
+        document.getElementById("nParcelInput").value = "360";
         alert.innerHTML = "O valor máximo de parcelas é 360";
         return false;
     }
@@ -99,7 +101,7 @@ function validateFields() {
     }
     if (getInterest() > 100) {
         alert.style.display = "flex";
-        document.getElementById("jurosCampo").value = "100";
+        document.getElementById("interestInput").value = "100";
         alert.innerHTML = "A taxa de juros máxima é de 100%";
         return false;
     }
@@ -107,14 +109,14 @@ function validateFields() {
     return true;
 
 }
-
+//calcula o valor da parcela do financiamento price
 function calcParcelPrice(valuePresent, interest) {
     //conta para saber valor prestação
     interest = interest / 100;
     var valueParcel = valuePresent * (interest * (Math.pow((1 + interest), getNParcel())) / ((Math.pow((1 + interest), getNParcel())) - 1));
     return valueParcel;
 }
-
+//calcula chama as funções que calculam os valores e os exibe na tabela
 function calcPrice() {
     if (validateFields()) {
         var valuePresent = (getValue() - getEntry());
@@ -123,28 +125,32 @@ function calcPrice() {
     }
 
 }
-
+//calcula o juros de cada periodo
 function calcTotInterest(value, interest) {
     var totInterest = value * (interest / 100);
     return totInterest;
 }
-
+//calcula o saldo devedor de cada periodo
 function calcBalance(value, amortiz) {
     var balance = value - amortiz;
     return balance;
 }
-
-function createTabPric(valuePresent, parcel, nParcel) {
+//verifica se existe elementos na tabela, e se existirem ele apaga
+function checkExistingTable() {
     if (document.getElementById("tbody").childElementCount > 0) {
         document.getElementById("tbody").innerHTML = "";
     }
     if (document.getElementById("tbodytot").childElementCount > 0) {
         document.getElementById("tbodytot").innerHTML = "";
     }
-    desocultatabela();
-    //TABELA
+}
+//cria os elementos e os exibe na tabela
+function createTabPric(valuePresent, parcel, nParcel) {
+    checkExistingTable();
+    uncoverTable();
+    //Encontra corpo da tabela
     var tbody = document.getElementById("tbody");
-
+    //cria linhas e celulas, e os adiciona no corpo da tabela
     var row = document.createElement("tr");
     var cel1, cel2, cel3, cel4, cel5;
     var txt1, txt2, txt3, txt4, txt5;
@@ -235,7 +241,7 @@ function createTabPric(valuePresent, parcel, nParcel) {
     row.appendChild(celBalance);
     tbody.appendChild(row);
 }
-
+//chama as funções que fazem o calculo do financiamento SAC
 function calcSAC() {
     if (validateFields()) {
         var interest = (getInterest() / 100);
@@ -245,18 +251,18 @@ function calcSAC() {
     }
 }
 
-
+//calcula amortização do financiamento SAC
 function calcAmortizSac(value) {
     var amort = value / getNParcel();
     return amort;
 }
-
+//calcula juros de cada periodo
 function calcTotInterestSac(value, interest) {
     var totInterest = value * interest;
     return totInterest;
 
 }
-
+//cria os elementos e os exibe na tabela
 function createTabSAC(value, interest, amortiz, nParcel) {
     if (document.getElementById("tbody").childElementCount > 0) {
         document.getElementById("tbody").innerHTML = "";
@@ -264,7 +270,7 @@ function createTabSAC(value, interest, amortiz, nParcel) {
     if (document.getElementById("tbodytot").childElementCount > 0) {
         document.getElementById("tbodytot").innerHTML = "";
     }
-    desocultatabela();
+    uncoverTable();
     //TABELA
     var tbody = document.getElementById("tbody");
 
@@ -359,17 +365,17 @@ function createTabSAC(value, interest, amortiz, nParcel) {
     row.appendChild(celBalance);
     tbody.appendChild(row);
 }
-
-function ocultabotaoprice() {
+//oculta o botão para calcular financiamento price
+function hideBtnPrice() {
     document.getElementById("btnprice").style.display = "none";
     document.getElementById("btnsac").style.display = "flex";
 }
-
-function ocultabotaosac() {
+//oculta o botão para calcular financiamento SAC
+function hideBtnSac() {
     document.getElementById("btnsac").style.display = "none";
     document.getElementById("btnprice").style.display = "flex";
 }
-
-function desocultatabela() {
-    document.getElementById("tabela").style.display = "flex";
+//desoculta a div onde está a tabela
+function uncoverTable() {
+    document.getElementById("div-table").style.display = "flex";
 }
