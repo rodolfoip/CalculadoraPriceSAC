@@ -62,10 +62,16 @@ function validateFields() {
         alert.innerHTML = "O valor máximo para finaciamento é R$ 5 Bilhões";
         return false;
     }
-    if (getEntry().length > getValue().length) {
+    if (getEntry().lenght > getValue().lenght) {
         alert.style.display = "flex";
         alert.innerHTML = "A entrada não pode ser maior que o valor";
         document.getElementById("entradaCampo").value = "0";
+        return false;
+    }
+    if(getEntry()>5000000000){
+        document.getElementById("entradaCampo").value = "5000000000";
+        alert.style.display = "flex";
+        alert.innerHTML = "O valor máximo para entrada é R$ 5 Bilhões";
         return false;
     }
     if (!getNParcel()) {
@@ -100,24 +106,27 @@ function validateFields() {
 
 }
 
-function calcParcelPrice(valuePresent, entry, interest) {
+function calcParcelPrice(valuePresent, interest) {
     //conta para saber valor prestação
-    valuePresent = (valuePresent - entry);
+    //valuePresent = valuePresent - entry;
     interest = interest / 100;
     var valueParcel = valuePresent * (interest * (Math.pow((1 + interest), getNParcel())) / ((Math.pow((1 + interest), getNParcel())) - 1));
+    console.log("valor parcela"+ valueParcel+"valuePres "+valuePresent);
     return valueParcel;
 }
 
 function calcPrice() {
     if (validateFields()) {
-        var parcel = calcParcelPrice(getValue(), getEntry(), getInterest());
-        createTabPric(parcel, getNParcel());
+        var valuePresent = (getValue() - getEntry());
+        var parcel = calcParcelPrice(valuePresent, getInterest());
+        createTabPric(valuePresent, parcel, getNParcel());
     }
 
 }
 
-function calcTotInterest(valor, interest) {
-    var totInterest = valor * interest;
+function calcTotInterest(value, interest) {
+    var totInterest = value * (interest /100);
+    console.log("Juros total "+totInterest);
     return totInterest;
 }
 
@@ -126,7 +135,7 @@ function calcBalance(value, amortiz) {
     return balance;
 }
 
-function createTabPric(parcel, nParcel) {
+function createTabPric(valuePresent, parcel, nParcel) {
     if (document.getElementById("tbody").childElementCount > 0) {
         document.getElementById("tbody").innerHTML = "";
     }
@@ -140,8 +149,8 @@ function createTabPric(parcel, nParcel) {
     var row = document.createElement("tr");
     var cel1, cel2, cel3, cel4, cel5;
     var txt1, txt2, txt3, txt4, txt5;
-    var value = getValue();
-    var interest, amortiz;
+    var interest;
+    var amortiz;
     var totParcel = 0;
     var totAmortiz = 0;
     var totInterest = 0;
@@ -171,9 +180,10 @@ function createTabPric(parcel, nParcel) {
 
             tbody.appendChild(row);
         } else {
-            interest = calcTotInterest(value, (getInterest() / 100));
-            amortiz = parcel - interest;
-            value = calcBalance(value, amortiz);
+            interest = calcTotInterest(valuePresent, getInterest());
+            amortiz = parcel-interest;
+            console.log("amortiz "+amortiz);
+            valuePresent = calcBalance(valuePresent, amortiz);
             totParcel = totParcel + parcel;
             totAmortiz = totAmortiz + amortiz;
             totInterest = totInterest + interest;
@@ -196,7 +206,7 @@ function createTabPric(parcel, nParcel) {
             cel4.appendChild(txt4);
             row.appendChild(cel4);
             cel5 = document.createElement("td");
-            txt5 = document.createTextNode(value.toFixed(2));
+            txt5 = document.createTextNode(valuePresent.toFixed(2));
             cel5.appendChild(txt5);
             row.appendChild(cel5);
             tbody.appendChild(row);
