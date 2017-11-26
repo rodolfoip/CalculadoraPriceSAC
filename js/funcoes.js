@@ -62,13 +62,15 @@ function validateFields() {
         alert.innerHTML = "O valor máximo para finaciamento é R$ 5 Bilhões";
         return false;
     }
-    if (getEntry().lenght > getValue().lenght) {
+    var value = parseFloat(getValue());
+    var entry = parseFloat(getEntry());
+    if (value <= entry) {
         alert.style.display = "flex";
-        alert.innerHTML = "A entrada não pode ser maior que o valor";
+        alert.innerHTML = "A entrada deve ser menor que o valor";
         document.getElementById("entradaCampo").value = "0";
         return false;
     }
-    if(getEntry()>5000000000){
+    if (entry > 5000000000) {
         document.getElementById("entradaCampo").value = "5000000000";
         alert.style.display = "flex";
         alert.innerHTML = "O valor máximo para entrada é R$ 5 Bilhões";
@@ -90,7 +92,7 @@ function validateFields() {
         alert.innerHTML = "O campo juros deve ser preenchido com número positivo";
         return false;
     }
-    if (!getInterest()){
+    if (!getInterest()) {
         alert.style.display = "flex";
         alert.innerHTML = "O campo juros deve ser preenchido com número positivo";
         return false;
@@ -108,10 +110,8 @@ function validateFields() {
 
 function calcParcelPrice(valuePresent, interest) {
     //conta para saber valor prestação
-    //valuePresent = valuePresent - entry;
     interest = interest / 100;
     var valueParcel = valuePresent * (interest * (Math.pow((1 + interest), getNParcel())) / ((Math.pow((1 + interest), getNParcel())) - 1));
-    console.log("valor parcela"+ valueParcel+"valuePres "+valuePresent);
     return valueParcel;
 }
 
@@ -125,8 +125,7 @@ function calcPrice() {
 }
 
 function calcTotInterest(value, interest) {
-    var totInterest = value * (interest /100);
-    console.log("Juros total "+totInterest);
+    var totInterest = value * (interest / 100);
     return totInterest;
 }
 
@@ -181,8 +180,7 @@ function createTabPric(valuePresent, parcel, nParcel) {
             tbody.appendChild(row);
         } else {
             interest = calcTotInterest(valuePresent, getInterest());
-            amortiz = parcel-interest;
-            console.log("amortiz "+amortiz);
+            amortiz = parcel - interest;
             valuePresent = calcBalance(valuePresent, amortiz);
             totParcel = totParcel + parcel;
             totAmortiz = totAmortiz + amortiz;
