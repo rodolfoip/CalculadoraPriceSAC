@@ -51,19 +51,19 @@ function isNumber(evt) {
 
 function validateFields() {
     var alert = document.getElementById("alert");
+    var value = parseFloat(getValue());
+    var entry = parseFloat(getEntry());
     if (!getValue()) {
         alert.style.display = "flex";
         alert.innerHTML = "O campo valor deve ser preenchido";
         return false;
     }
-    if (getValue() > 5000000000) {
+    if (value > 5000000000) {
         alert.style.display = "flex";
         document.getElementById("valorCampo").value = "5000000000";
         alert.innerHTML = "O valor máximo para finaciamento é R$ 5 Bilhões";
         return false;
     }
-    var value = parseFloat(getValue());
-    var entry = parseFloat(getEntry());
     if (value <= entry) {
         alert.style.display = "flex";
         alert.innerHTML = "A entrada deve ser menor que o valor";
